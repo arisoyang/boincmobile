@@ -35,16 +35,17 @@ Go to the following website:
 http://www.scratchbox.org/download/files/sbox-releases/stable/tarball/
 
 Then download the following files (Unless specified, choose latest version):
-* core
-* libs
-* cputransp
-* doctools
-* git
-* mtd
-* perl
-* toolchain (cs2009q3-67 or later)
-* host-gcc
-* debian
+ 
+ * core
+ * libs
+ * cputransp
+ * doctools
+ * git
+ * mtd
+ * perl
+ * toolchain (cs2009q3-67 or later)
+ * host-gcc
+ * debian
 
 To install
 ||{{{$ cd /
@@ -95,19 +96,20 @@ Now that Scratchbox is installed we need to set it up to cross compile for ARM t
 ||{{{> sb-menu}}}||
 
 
-!Screenshot-scratchbox@ubuntu.png!
 
-* Choose Setup a target
-* Create a NEW target, give it any name
-* Select the compiler you downloaded (arm-linux-cs2009q3-67)
-* Select all development kits listed by highlighting each one and pressing enter, then Done and enter
-* Select CPU transparency (qemu-arm-cvs-m)
-* Yes to rootstrap. Locate the previously downloaded rootstrap to install.
-* Yes to install files
-* Only select DEVKIT and ETC. Remove all other files in list, then continue
-* And finally Yes to selecting target.
 
-Now scratchbox is setup, lets test it works with a hello world.
+ * Choose Setup a target
+ * Create a NEW target, give it any name
+ * Select the compiler you downloaded (arm-linux-cs2009q3-67)
+ * Select all development kits listed by highlighting each one and pressing enter, then Done and enter
+ * Select CPU transparency (qemu-arm-cvs-m)
+ * Yes to rootstrap. Locate the previously downloaded rootstrap to install.
+ * Yes to install files
+ * Only select DEVKIT and ETC. Remove all other files in list, then continue
+ * And finally Yes to selecting target.
+
+
+*Now scratchbox is setup, lets test it works with a hello world.*
 
 ||{{{> tar xfs /scratchbox/packages/hello-world.tar.gz}}}||
 
