@@ -1,0 +1,125 @@
+#summary One-sentence summary of this page.
+
+= Introduction =
+
+Add your content here.
+
+
+= Details =
+
+Add your content here.  Format your content with:
+  * Text in *bold* or _italic_
+  * Headings, paragraphs, and lists
+  * Automatic links to other wiki pages
+h4. {color:#000000}This wiki describes how to setup and use scratchbox on an x86 ubuntu host system{color}
+
+h4. What is Scratchbox?
+
+Scratchbox is a cross-compilation toolkit designed to make embedded Linux application development easier. It also provides a full set of tools to integrate and cross-compile an entire Linux distribution.
+
+I think of scratchbox as a type of virtual machine that runs on a host system which provides a solid ARM/Linux spoofing environment to the compilation toolchain for building large packages.
+
+[{color:#3366ff}Scratchbox official website{color}|http://www.scratchbox.org/]
+
+
+h4. Setting up Scratchbox on Ubuntu
+
+h5. Automatic installation
+
+{code}$ sudo gedit /etc/apt/sources.list{code}
+
+Add this to the end of the file, then save and exit gedit:
+{code}deb http://scratchbox.org/debian stable main
+deb http://scratchbox.org/debian legacy main{code}
+
+Now enter the following command:
+
+{code}$ sudo apt-get install scratchbox-core scratchbox-libs scratchbox-devkit-cputransp scratchbox-devkit-git scratchbox-devkit-mtd scratchbox-devkit-perl scratchbox-devkit-doctools scratchbox-toolchain-arm-linux-cs2009q3-67 scratchbox-toolchain-host-gcc scratchbox-devkit-debian{code}
+
+
+
+h5. Manual Installation:
+
+
+Go to the following website:
+{code}http://www.scratchbox.org/download/files/sbox-releases/stable/tarball/{code}
+
+Then download the following files (Unless specified, choose latest version):
+- core
+- libs
+- cputransp
+- doctools
+- git
+- mtd
+- perl
+- toolchain (cs2009q3-67 or later)
+- host-gcc
+- debian
+
+To install
+{code}$ cd /
+$ sudo tar xvf /<location of files>/scratchbox-core.tar.gz {code}
+
+Repeat for all the downloaded files.
+
+h5. Installation Continued for both Automatic and Manual Methods:
+
+Now, a few changes needs to me made in order for it to work correctly:
+{code}$ sudo gedit /etc/sysctl.conf{code}
+Change vm.mmap_min_addr to be 4096 and append to the end: vm.vdso=0
+Save and Close.
+
+The Ubuntu host kernel has vdso support (which is uncompatible with SB)
+You can fix this with:
+
+{code}$ sudo -s
+root@ubuntu:~# echo 0 > /proc/sys/vm/vdso_enabled
+{code}
+
+
+Add yourself to scratchbox:
+{code}$ sb-adduser <username>{code}
+
+Make sure it worked by doing the following command, and see if sbox is listed.
+{code}$ groups{code}
+
+If it isnt listed, restart and try again. If it still isnt listed, then do the following:
+{code}$ usermod -a -G sbox <username>{code}
+
+It should now list (possibly after another logout)
+
+
+
+Congratulations, you have access to scratchbox\!
+
+h5. Setting up Scratchbox
+
+First we need to download a rootstrap to use with SB, if this package is not the latest generic rootstrap then find the latest.
+
+{code}http://linux.onarm.com/download/images/generic-2/20090807/generic-20090807-rootstrap.tar.gz
+{code}
+
+Now that Scratchbox is installed we need to set it up to cross compile for ARM targets.
+{code}
+> sb-menu
+{code}
+
+!Screenshot-scratchbox@ubuntu.png!
+
+- Choose Setup a target
+- Create a NEW target, give it any name
+- Select the compiler you downloaded (arm-linux-cs2009q3-67)
+- Select all development kits listed by highlighting each one and pressing enter, then Done and enter
+- Select CPU transparency (qemu-arm-cvs-m)
+- Yes to rootstrap. Locate the previously downloaded rootstrap to install.
+- Yes to install files
+- Only select DEVKIT and ETC. Remove all other files in list, then continue
+- And finally Yes to selecting target.
+
+Now scratchbox is setup, lets test it works with a hello world.
+{code}> tar xfs /scratchbox/packages/hello-world.tar.gz
+> cd hello-world
+> ./autogen.sh
+> make
+> ./hello {code}
+If it works, you will get "Hello World\!" outputed\!
