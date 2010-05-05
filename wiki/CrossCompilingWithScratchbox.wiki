@@ -48,8 +48,8 @@ Then download the following files (Unless specified, choose latest version):
  * debian
 
 To install
-||{{{$ cd /
-$ sudo tar xvf /<location of files>/scratchbox-core.tar.gz}}}||
+||{{{$ cd / }}}||
+||{{{$ sudo tar xvf /<location of files>/scratchbox-core.tar.gz}}}||
 
 Repeat for all the downloaded files.
 
@@ -57,7 +57,7 @@ Repeat for all the downloaded files.
 
 Now, a few changes needs to me made in order for it to work correctly:
 
-||{{{$ sudo gedit /etc/sysctl.conf}}}||
+||{{{$ sudo gedit /etc/sysctl.conf }}}||
 
 Change vm.mmap_min_addr to be 4096 and append to the end: vm.vdso=0
 Save and Close.
