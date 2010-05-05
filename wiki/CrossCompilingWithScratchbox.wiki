@@ -1,125 +1,122 @@
-#summary One-sentence summary of this page.
+=This wiki describes how to setup and use scratchbox on an x86 ubuntu host system=
 
-= Introduction =
-
-Add your content here.
-
-
-= Details =
-
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
-h4. {color:#000000}This wiki describes how to setup and use scratchbox on an x86 ubuntu host system{color}
-
-h4. What is Scratchbox?
+*What is Scratchbox?*
 
 Scratchbox is a cross-compilation toolkit designed to make embedded Linux application development easier. It also provides a full set of tools to integrate and cross-compile an entire Linux distribution.
 
 I think of scratchbox as a type of virtual machine that runs on a host system which provides a solid ARM/Linux spoofing environment to the compilation toolchain for building large packages.
 
-[{color:#3366ff}Scratchbox official website{color}|http://www.scratchbox.org/]
+Scratchbox official website http://www.scratchbox.org/
 
 
-h4. Setting up Scratchbox on Ubuntu
+== Installing up Scratchbox on Ubuntu ==
 
-h5. Automatic installation
+=== Automatic installation ===
 
-{code}$ sudo gedit /etc/apt/sources.list{code}
+||{{{$ sudo gedit /etc/apt/sources.list}}}||
 
 Add this to the end of the file, then save and exit gedit:
-{code}deb http://scratchbox.org/debian stable main
-deb http://scratchbox.org/debian legacy main{code}
+
+||{{{deb http://scratchbox.org/debian stable main}}}||
+
+||{{{deb http://scratchbox.org/debian legacy main}}}||
 
 Now enter the following command:
 
-{code}$ sudo apt-get install scratchbox-core scratchbox-libs scratchbox-devkit-cputransp scratchbox-devkit-git scratchbox-devkit-mtd scratchbox-devkit-perl scratchbox-devkit-doctools scratchbox-toolchain-arm-linux-cs2009q3-67 scratchbox-toolchain-host-gcc scratchbox-devkit-debian{code}
+||{{{$ sudo apt-get install scratchbox-core scratchbox-libs scratchbox-devkit-cputransp scratchbox-devkit-git scratchbox-devkit-mtd scratchbox-devkit-perl scratchbox-devkit-doctools scratchbox-toolchain-arm-linux-cs2009q3-67 scratchbox-toolchain-host-gcc scratchbox-devkit-debian}}}||
 
 
 
-h5. Manual Installation:
+
+=== Manual Installation: ===
 
 
 Go to the following website:
-{code}http://www.scratchbox.org/download/files/sbox-releases/stable/tarball/{code}
+http://www.scratchbox.org/download/files/sbox-releases/stable/tarball/
 
 Then download the following files (Unless specified, choose latest version):
-- core
-- libs
-- cputransp
-- doctools
-- git
-- mtd
-- perl
-- toolchain (cs2009q3-67 or later)
-- host-gcc
-- debian
+* core
+* libs
+* cputransp
+* doctools
+* git
+* mtd
+* perl
+* toolchain (cs2009q3-67 or later)
+* host-gcc
+* debian
 
 To install
-{code}$ cd /
-$ sudo tar xvf /<location of files>/scratchbox-core.tar.gz {code}
+||{{{$ cd /
+$ sudo tar xvf /<location of files>/scratchbox-core.tar.gz}}}||
 
 Repeat for all the downloaded files.
 
-h5. Installation Continued for both Automatic and Manual Methods:
+=== Installation Continued for both Automatic and Manual Methods:===
 
 Now, a few changes needs to me made in order for it to work correctly:
-{code}$ sudo gedit /etc/sysctl.conf{code}
+
+||{{{$ sudo gedit /etc/sysctl.conf}}}||
+
 Change vm.mmap_min_addr to be 4096 and append to the end: vm.vdso=0
 Save and Close.
 
-The Ubuntu host kernel has vdso support (which is uncompatible with SB)
+The Ubuntu host kernel has vdso support (which is incompatible with SB)
 You can fix this with:
 
-{code}$ sudo -s
-root@ubuntu:~# echo 0 > /proc/sys/vm/vdso_enabled
-{code}
+||{{{$ sudo -s
+root@ubuntu:~# echo 0 > /proc/sys/vm/vdso_enabled }}}||
+
 
 
 Add yourself to scratchbox:
-{code}$ sb-adduser <username>{code}
+||{{{$ sb-adduser <username> }}}||
 
 Make sure it worked by doing the following command, and see if sbox is listed.
-{code}$ groups{code}
+||{{{$ groups }}}||
 
 If it isnt listed, restart and try again. If it still isnt listed, then do the following:
-{code}$ usermod -a -G sbox <username>{code}
+||{{{$ usermod -a -G sbox <username>  }}}||
 
 It should now list (possibly after another logout)
 
 
+*Congratulations, you have access to scratchbox!*
 
-Congratulations, you have access to scratchbox\!
-
-h5. Setting up Scratchbox
+==Setting up Scratchbox ==
 
 First we need to download a rootstrap to use with SB, if this package is not the latest generic rootstrap then find the latest.
 
-{code}http://linux.onarm.com/download/images/generic-2/20090807/generic-20090807-rootstrap.tar.gz
-{code}
+http://linux.onarm.com/download/images/generic-2/20090807/generic-20090807-rootstrap.tar.gz
+
 
 Now that Scratchbox is installed we need to set it up to cross compile for ARM targets.
-{code}
-> sb-menu
-{code}
+
+||{{{> sb-menu}}}||
+
 
 !Screenshot-scratchbox@ubuntu.png!
 
-- Choose Setup a target
-- Create a NEW target, give it any name
-- Select the compiler you downloaded (arm-linux-cs2009q3-67)
-- Select all development kits listed by highlighting each one and pressing enter, then Done and enter
-- Select CPU transparency (qemu-arm-cvs-m)
-- Yes to rootstrap. Locate the previously downloaded rootstrap to install.
-- Yes to install files
-- Only select DEVKIT and ETC. Remove all other files in list, then continue
-- And finally Yes to selecting target.
+* Choose Setup a target
+* Create a NEW target, give it any name
+* Select the compiler you downloaded (arm-linux-cs2009q3-67)
+* Select all development kits listed by highlighting each one and pressing enter, then Done and enter
+* Select CPU transparency (qemu-arm-cvs-m)
+* Yes to rootstrap. Locate the previously downloaded rootstrap to install.
+* Yes to install files
+* Only select DEVKIT and ETC. Remove all other files in list, then continue
+* And finally Yes to selecting target.
 
 Now scratchbox is setup, lets test it works with a hello world.
-{code}> tar xfs /scratchbox/packages/hello-world.tar.gz
-> cd hello-world
-> ./autogen.sh
-> make
-> ./hello {code}
-If it works, you will get "Hello World\!" outputed\!
+
+||{{{> tar xfs /scratchbox/packages/hello-world.tar.gz}}}||
+
+||{{{> cd hello-world}}}||
+
+||{{{> ./autogen.sh}}}||
+
+||{{{> make}}}||
+
+||{{{> ./hello }}}||
+
+If it works, you will get "Hello World!" outputed!
