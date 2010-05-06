@@ -65,8 +65,8 @@ Save and Close.
 The Ubuntu host kernel has vdso support (which is incompatible with SB)
 You can fix this with:
 
-||{{{$ sudo -s
-root@ubuntu:~# echo 0 > /proc/sys/vm/vdso_enabled }}}||
+||{{{$ sudo -s }}}||
+||{{{root@ubuntu:~# echo 0 > /proc/sys/vm/vdso_enabled }}}||
 
 
 
