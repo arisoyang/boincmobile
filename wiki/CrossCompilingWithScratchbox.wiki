@@ -71,7 +71,7 @@ You can fix this with:
 
 
 Add yourself to scratchbox:
-||{{{$ sb-adduser <username> }}}||
+||{{{$ sudo sb-adduser <username> }}}||
 
 Make sure it worked by doing the following command, and see if sbox is listed.
 ||{{{$ groups }}}||
