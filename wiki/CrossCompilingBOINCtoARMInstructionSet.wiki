@@ -1,6 +1,4 @@
-#This page describe exactly how to cross compiler BOINC for embedded systems using scratchbox
-
-=This wiki describes how to cross compile BOINC to an ARM / linux platform=
+=This wiki describes how to cross compile BOINC to a ARM/linux platform=
 
 *What is BOINC*
 
