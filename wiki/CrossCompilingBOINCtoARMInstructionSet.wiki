@@ -2,7 +2,7 @@
 
 *What is BOINC*
 
-BOINC allows you to use the idle time on your computer (Windows, Mac, or Linux) to cure diseases, study global warming, discover pulsars, and do many other types of scientific research.
+Currently BOINC allows you to use the idle time on your computer (Windows, Mac, or Linux) to cure diseases, study global warming, discover pulsars, and do many other types of scientific research.
 
 This project is being developed to allow you to use your idle time on your smart phone or other internet connected device to server the same purpose. 
 
@@ -15,14 +15,48 @@ Before we can successfully cross compile BOINC for the ARM instruction set we fi
 === Installing BOINC dependencies automatically ===
 
 
+{{{> fakeroot apt-get install curl zlib autoconf m4 openssl }}}
+
+
 === Installing BOINC dependencies manually ===
+
+Download Autoconf:
+{{{
+> tar zxvf autoconf-2.63.tar.gz 
+> cd autoconf-2.63
+> fakeroot ./configure 
+> fakeroot make install 
+}}}
+
+Download AutoMake:
+{{{
+>  tar zxvf automake-1.10.1.tar.gz
+> cd automake-1.10.1
+> fakeroot ./configure 
+> fakeroot make install
+}}}
+
 Download Curl from:
 http://curl.haxx.se/
 {{{
-tar xvzf curl-7.20.1.tar.gz
-fakeroot ./configure  --host=i386 --target=armel
-make install
+>tar xvzf curl-7.20.1.tar.gz
+>fakeroot ./configure  --host=i386 --target=armel
+>fakeroot make install
 }}}
+
+Download OpenSSL source
+http://www.openssl.org/source/
+
+{{{
+> tar xvzf openssl-1.0.0.tar.gz
+> cd openssl-1.0.0
+> fakeroot ./config
+> fakeroot make install
+}}}
+
+
+
+
 
 
 == Getting the BOINC source code from the SVN repository ==
@@ -32,8 +66,3 @@ First login to scratchbox:
 
 Now check out the BOINC source code from the SVN repository
 ||{{{> svn co http://boinc.berkeley.edu/svn/trunk/boinc   }}}||
-
-=== Automatic installation ===
-
-
-||{{{> fakeroot apt-get install curl zlib autoconf m4  }}}||
