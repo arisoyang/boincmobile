@@ -122,6 +122,8 @@ Set ARCH
 ||{{{> apt-get update}}}||
 
 
+Now lets test the installation with hello world!
+
 ||{{{> tar xfs /scratchbox/packages/hello-world.tar.gz}}}||
 
 ||{{{> cd hello-world}}}||
