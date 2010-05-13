@@ -1,0 +1,22 @@
+#This page describe exactly how to cross compiler BOINC for embedded systems using scratchbox
+
+=This wiki describes how to cross compile BOINC to an ARM / linux platform=
+
+*What is BOINC*
+
+BOINC allows you to use the idle time on your computer (Windows, Mac, or Linux) to cure diseases, study global warming, discover pulsars, and do many other types of scientific research.
+
+This project is being developed to allow you to use your idle time on your smart phone or other internet connected device to server the same purpose. 
+
+*This tutorial assumes that you have setup scratchbox on your host development system*
+
+
+== Getting the BOINC source code from the SVN repository ==
+
+First login to scratchbox:
+||{{{$ /scratchbox/login   }}}||
+
+Now check out the BOINC source code from the SVN repository
+||{{{> svn co http://boinc.berkeley.edu/svn/trunk/boinc   }}}||
+
+=== Automatic installation ===
