@@ -21,6 +21,7 @@ Before we can successfully cross compile BOINC for the ARM instruction set we fi
 === Installing BOINC dependencies manually ===
 
 Download Autoconf:
+
 {{{
 > tar zxvf autoconf-2.63.tar.gz 
 > cd autoconf-2.63
@@ -30,7 +31,7 @@ Download Autoconf:
 
 Download AutoMake:
 {{{
->  tar zxvf automake-1.10.1.tar.gz
+> tar zxvf automake-1.10.1.tar.gz
 > cd automake-1.10.1
 > fakeroot ./configure 
 > fakeroot make install
@@ -39,9 +40,9 @@ Download AutoMake:
 Download Curl from:
 http://curl.haxx.se/
 {{{
->tar xvzf curl-7.20.1.tar.gz
->fakeroot ./configure  --host=i386 --target=armel
->fakeroot make install
+> tar xvzf curl-7.20.1.tar.gz
+> fakeroot ./configure  --host=i386 --target=armel
+> fakeroot make install
 }}}
 
 Download OpenSSL source
@@ -54,9 +55,15 @@ http://www.openssl.org/source/
 > fakeroot make install
 }}}
 
+Download zlib
+http://www.zlib.net/
 
-
-
+{{{
+> tar xvzf zlib-1.2.5.tar.gz
+> cd zlib-1.2.5
+> fakeroot ./configure
+> fakeroot make install
+}}}
 
 
 == Getting the BOINC source code from the SVN repository ==
