@@ -8,9 +8,9 @@ Most of the issues with cross compiling BOINC are due to the host system environ
 
 *Error Message*
 {{{
-> crypt.cpp:33:25: error: openssl/ssl.h: No such file or directory
-> crypt.cpp:34:25: error: openssl/md5.h: No such file or directory
-> crypt.cpp:35:25: error: openssl/bio.h: No such file or directory
+crypt.cpp:33:25: error: openssl/ssl.h: No such file or directory
+crypt.cpp:34:25: error: openssl/md5.h: No such file or directory
+crypt.cpp:35:25: error: openssl/bio.h: No such file or directory
 }}}
 
 *Fix*
@@ -36,8 +36,8 @@ The -l flag is essentially a shorthand for "look for lib.whatever.so lib.whateve
 
 *Fix*
 {{{
-ln -s /usr/local/ssl/lib/libcrypto.a /usr/lib/libcrypto.a
-ln -s /usr/local/ssl/lib/libssl.a /usr/lib/libssl.a
+> ln -s /usr/local/ssl/lib/libcrypto.a /usr/lib/libcrypto.a
+> ln -s /usr/local/ssl/lib/libssl.a /usr/lib/libssl.a
 }}}
 
 ==End Known Issues==
