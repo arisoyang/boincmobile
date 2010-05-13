@@ -76,10 +76,10 @@ http://www.zlib.net/
 Now check out the BOINC source code from the SVN repository
 ||{{{> svn co http://boinc.berkeley.edu/svn/trunk/boinc   }}}||
 
-{{{
+||{{{
 > cd boinc
 > fakeroot ./_autosetup
 > fakeroot ./configure --disable-server  --host=i386 --target=armel CXXFLAGS="-O3 -march=armv7-a -mtune=cortex-a8 -mcpu=cortex-a8 -mfloat-abi=softfp -mfpu=neon -ftree-vectorize -fomit-frame-pointer -ffast-math" CFLAGS="-O3 -march=armv7-a -mtune=cortex-a8 -mcpu=cortex-a8 -mfloat-abi=softfp -mfpu=neon -ftree-vectorize -fomit-frame-pointer -ffast-math"
 > fakeroot make
 
-}}}
+}}}||
