@@ -8,6 +8,22 @@ This project is being developed to allow you to use your idle time on your smart
 
 *This tutorial assumes that you have setup scratchbox on your host development system*
 
+== Installing the BOINC dependencies in the compilation environment ==
+
+Before we can successfully cross compile BOINC for the ARM instruction set we first need to install all of the dependencies into the scratchbox target. We will show both automatic and manual methods for installing these dependencies.
+
+=== Installing BOINC dependencies automatically ===
+
+
+=== Installing BOINC dependencies manually ===
+Download Curl from:
+http://curl.haxx.se/
+{{{
+tar xvzf curl-7.20.1.tar.gz
+fakeroot ./configure  --host=i386 --target=armel
+make install
+}}}
+
 
 == Getting the BOINC source code from the SVN repository ==
 
@@ -18,3 +34,6 @@ Now check out the BOINC source code from the SVN repository
 ||{{{> svn co http://boinc.berkeley.edu/svn/trunk/boinc   }}}||
 
 === Automatic installation ===
+
+
+||{{{> fakeroot apt-get install curl zlib autoconf m4  }}}||
