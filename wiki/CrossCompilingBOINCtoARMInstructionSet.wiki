@@ -99,4 +99,4 @@ Now lets build SETI for the ARM instruction set
 ||{{{> cd seti_boinc }}}||
 ||{{{> fakeroot ./_autosetup }}}||
 ||{{{> fakeroot ./configure --host=i386 --target=armel --disable-serer CXXFLAGS="-O3 -march=armv7-a -mtune=cortex-a8 -mcpu=cortex-a8 -mfloat-abi=softfp -mfpu=neon -ftree-vectorize -fomit-frame-pointer -ffast-math" CFLAGS="-O3 -march=armv7-a -mtune=cortex-a8 -mcpu=cortex-a8 -mfloat-abi=softfp -mfpu=neon -ftree-vectorize -fomit-frame-pointer -ffast-math" }}}||
-||{{{>                   }}}||
+||{{{> make }}}||
