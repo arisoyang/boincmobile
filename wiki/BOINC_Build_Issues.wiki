@@ -30,6 +30,7 @@ collect2: ld returned 1 exit status
 }}}
 
 *Explanation*
+
 The -l flag is essentially a shorthand for "look for lib.whatever.so lib.whatever.a in all the configured library directories". "Configured library directories" are whatever has been configured in your linker, plus the arguments to any -L options you might have.
 
 
