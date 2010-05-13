@@ -118,6 +118,13 @@ Set ARCH
 
 ||{{{> export SBOX_DPKG_INST_ARCH=armel}}}||
 
+Update /etc/apt/source.list to lenny or latest
+||{{{> vi /etc/apt/source.list}}}||
+||{{{
+deb ftp://ftp.debian.org/debian/ lenny main
+deb-src ftp://ftp.debian.org/debian/ lenny main
+}}}||
+
 ||{{{> apt-get update}}}||
 
 
