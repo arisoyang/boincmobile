@@ -114,7 +114,7 @@ To login type
 ||{{{$ /scratchbox/login}}}||
 
 Set ARCH
-||{{{>export ARCH=arm}}}||
+||{{{>export ARCH=armel}}}||
 
 ||{{{> export SBOX_DPKG_INST_ARCH=armel}}}||
 
