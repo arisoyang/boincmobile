@@ -85,4 +85,18 @@ Now lets build BOINC
 
 Depending on the details of your build environment you might have noticed a few configuration and compilation errors.
 
-To see a list of the know cross compilation issues and annoyances click here:
+To see a list of the know cross compilation issues and annoyances click here: http://code.google.com/p/boincmobile/wiki/BOINC_Build_Issues
+
+== Building SETI at Home ==
+
+=== getting the seti at home source code ===
+
+||{{{ svn checkout https://setisvn.ssl.berkeley.edu/svn/seti_boinc }}}||
+
+Now lets build SETI for the ARM instruction set
+
+
+||{{{> cd seti_boinc }}}||
+||{{{> fakeroot ./_autosetup }}}||
+||{{{> fakeroot ./configure --host=i386 --target=armel --disable-serer CXXFLAGS="-O3 -march=armv7-a -mtune=cortex-a8 -mcpu=cortex-a8 -mfloat-abi=softfp -mfpu=neon -ftree-vectorize -fomit-frame-pointer -ffast-math" CFLAGS="-O3 -march=armv7-a -mtune=cortex-a8 -mcpu=cortex-a8 -mfloat-abi=softfp -mfpu=neon -ftree-vectorize -fomit-frame-pointer -ffast-math" }}}||
+||{{{>                   }}}||
