@@ -12,15 +12,19 @@ This project is being developed to allow you to use your idle time on your smart
 
 Before we can successfully cross compile BOINC for the ARM instruction set we first need to install all of the dependencies into the scratchbox target. We will show both automatic and manual methods for installing these dependencies.
 
+
+First login to scratchbox:
+{{{$ /scratchbox/login   }}}
+
 === Installing BOINC dependencies automatically ===
 
 
-{{{> fakeroot apt-get install curl zlib autoconf m4 openssl }}}
+||{{{> fakeroot apt-get install curl zlib autoconf m4 openssl }}}||
 
 
 === Installing BOINC dependencies manually ===
 
-Download Autoconf:
+Download Autoconf: http://www.gnu.org/software/autoconf/
 
 {{{
 > tar zxvf autoconf-2.63.tar.gz 
@@ -29,7 +33,7 @@ Download Autoconf:
 > fakeroot make install 
 }}}
 
-Download AutoMake:
+Download AutoMake http://ftp.gnu.org/gnu/automake/
 {{{
 > tar zxvf automake-1.10.1.tar.gz
 > cd automake-1.10.1
@@ -68,8 +72,14 @@ http://www.zlib.net/
 
 == Getting the BOINC source code from the SVN repository ==
 
-First login to scratchbox:
-||{{{$ /scratchbox/login   }}}||
 
 Now check out the BOINC source code from the SVN repository
 ||{{{> svn co http://boinc.berkeley.edu/svn/trunk/boinc   }}}||
+
+{{{
+> cd boinc
+> fakeroot ./_autosetup
+> fakeroot ./configure --disable-server  --host=i386 --target=armel CXXFLAGS="-O3 -march=armv7-a -mtune=cortex-a8 -mcpu=cortex-a8 -mfloat-abi=softfp -mfpu=neon -ftree-vectorize -fomit-frame-pointer -ffast-math" CFLAGS="-O3 -march=armv7-a -mtune=cortex-a8 -mcpu=cortex-a8 -mfloat-abi=softfp -mfpu=neon -ftree-vectorize -fomit-frame-pointer -ffast-math"
+> fakeroot make
+
+}}}
