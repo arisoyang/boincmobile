@@ -139,4 +139,4 @@ Now lets test the installation with hello world!
 
 ||{{{> ./hello }}}||
 
-If it works, you will get "Hello World!" outputed!
+You should see "Hello World!" printed in the terminal!
