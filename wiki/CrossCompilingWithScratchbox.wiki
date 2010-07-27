@@ -1,4 +1,4 @@
-=This wiki describes how to setup and use scratchbox on an x86 ubuntu host system=
+=This wiki describes how to setup and use scratchbox on a x86 ubuntu host system=
 
 *What is Scratchbox?*
 
