@@ -9,7 +9,7 @@ I think of scratchbox as a type of virtual machine that runs on a host system wh
 Scratchbox official website http://www.scratchbox.org/
 
 
-== Installing up Scratchbox on Ubuntu 9.10 ==
+== Installing up Scratchbox on Ubuntu 9.10 (x86-32bit)==
 
 === Automatic installation ===
 
