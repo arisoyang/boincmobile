@@ -80,7 +80,7 @@ Now lets build BOINC
 
 ||{{{> cd boinc}}}||
 ||{{{> fakeroot ./_autosetup}}}||
-||{{{> fakeroot ./configure --disable-server  --host=i386 --target=armel CXXFLAGS="-O3 -march=armv7-a -mtune=cortex-a8 -mcpu=cortex-a8 -mfloat-abi=softfp -mfpu=neon -ftree-vectorize -fomit-frame-pointer -ffast-math" CFLAGS="-O3 -march=armv7-a -mtune=cortex-a8 -mcpu=cortex-a8 -mfloat-abi=softfp -mfpu=neon -ftree-vectorize -fomit-frame-pointer -ffast-math"}}}||
+||{{{> fakeroot ./configure --disable-server  --host=i386 --target=armel CXXFLAGS="-O3 -mtune=cortex-a8 -mfpu=neon" CFLAGS="-O3 -mtune=cortex-a8 -mfpu=neon"}}}||
 ||{{{> fakeroot make}}}||
 
 Depending on the details of your build environment you might have noticed a few configuration and compilation errors.
