@@ -10,22 +10,31 @@
 sudo apt-get install autoconf m4 openssl libcurl4-openssl-dev libtool subversion
 
 svn co http://boinc.berkeley.edu/svn/trunk/boinc 
-svn checkout https://setisvn.ssl.berkeley.edu/svn/seti_boinc
-wget http://www.fftw.org/fftw-3.2.2.tar.gz 
-tar xvzf fftw-3.3-beta1.tar.gz
-
 cd boinc/
 ./_autosetup
-./configure --disable-server CXXFLAGS="-O2 -mtune=cortex-a8 -mfpu=neon" CFLAGS="-O2 -mtune=cortex-a8 -mfpu=neon"
+./configure --disable-server CXXFLAGS="-O3 -mtune=cortex-a9 -mfpu=neon" CFLAGS="-O3 -mtune=cortex-a9 -mfpu=neon"
 make
+
+wget http://www.fftw.org/fftw-3.2.2.tar.gz 
+tar xvzf fftw-3.2.2.tar.gz
 cd ../fftw-3.2.2/
-wget http://code.google.com/p/fftw-neon/downloads/detail?name=fftw-3.2.2-neon-1.diff&can=2&q=
-patch -p1 < fftw-3.2.2-neon-1.diff
-./configure CXXFLAGS="-O2 -mtune=cortex-a8 -mfpu=neon" CFLAGS="-O2 -mtune=cortex-a8 -mfpu=neon"
+./configure --prefix=/usr --enable-single --enable-shared --with-pic CFLAGS="-O3 -pipe -mcpu=cortex-a9 -mfpu=neon -mfloat-abi=softfp"
 make
 sudo make install
+
+svn checkout https://setisvn.ssl.berkeley.edu/svn/seti_boinc
 cd ../seti_boinc
 ./_autosetup
 ./configure --disable-server CXXFLAGS="-O2 -mtune=cortex-a8 -mfpu=neon" CFLAGS="-O2 -mtune=cortex-a8 -mfpu=neon"
 make
+}}}
+
+=== Using Super Optimized Version of FFTW ===
+{{{
+cd ../fftw-3.2.2/
+wget http://code.google.com/p/fftw-neon/downloads/detail?name=fftw-3.2.2-neon-1.diff
+patch -p1 < fftw-3.2.2-neon-1.diff
+./configure --prefix=/usr --enable-single --enable-shared --with-pic CFLAGS="-O3 -pipe -mcpu=cortex-a9 -mfpu=neon -mfloat-abi=softfp"
+make
+sudo make install
 }}}
