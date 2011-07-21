@@ -2,12 +2,9 @@
 
 
 
-== Building SETI at Home ==
-
 === Simple Install Script ===
 
-||{{{ 
-#!/bin/bash
+||{{{#!/bin/bash
 
 sudo apt-get install autoconf m4 openssl libcurl4-openssl-dev libtool subversion
 
@@ -29,15 +26,4 @@ sudo make install
 cd ../seti_boinc
 ./_autosetup
 ./configure --disable-server CXXFLAGS="-O2 -mtune=cortex-a8 -mfpu=neon" CFLAGS="-O2 -mtune=cortex-a8 -mfpu=neon"
-make
-
-
- }}}||
-
-Now lets build SETI for the ARM instruction set
-
-
-||{{{> cd seti_boinc }}}||
-||{{{> fakeroot ./_autosetup }}}||
-||{{{> fakeroot ./configure --host=i386 --target=armel --disable-server CXXFLAGS="-O2 -mtune=cortex-a8 -mfpu=neon" CFLAGS="-O2 -mtune=cortex-a8 -mfpu=neon" }}}||
-||{{{> make }}}||
+make}}}||
