@@ -25,7 +25,7 @@ sudo make install
 svn checkout https://setisvn.ssl.berkeley.edu/svn/seti_boinc
 cd ../seti_boinc
 ./_autosetup
-./configure --disable-server CXXFLAGS="-O2 -mtune=cortex-a8 -mfpu=neon" CFLAGS="-O2 -mtune=cortex-a8 -mfpu=neon"
+./configure --disable-server CXXFLAGS="-O3 -mtune=cortex-a9 -mfpu=neon" CFLAGS="-O3 -mtune=cortex-a9 -mfpu=neon"
 make
 }}}
 
