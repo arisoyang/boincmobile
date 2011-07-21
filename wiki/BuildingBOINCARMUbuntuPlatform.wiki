@@ -1,14 +1,43 @@
-#summary Instructions to build on an ARM target running Ubuntu
-
-= Introduction =
-
-By far the easiest way to port BOINC and SETI@Home to ARM/Linux
+=Compiling BOINC on a ARM/Ubuntu platform=
 
 
 
-= Details =
+== Building SETI at Home ==
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+=== Simple Install Script ===
+
+||{{{ 
+#!/bin/bash
+
+sudo apt-get install autoconf m4 openssl libcurl4-openssl-dev libtool subversion
+
+svn co http://boinc.berkeley.edu/svn/trunk/boinc 
+svn checkout https://setisvn.ssl.berkeley.edu/svn/seti_boinc
+wget http://www.fftw.org/fftw-3.2.2.tar.gz 
+tar xvzf fftw-3.3-beta1.tar.gz
+
+cd boinc/
+./_autosetup
+./configure --disable-server CXXFLAGS="-O2 -mtune=cortex-a8 -mfpu=neon" CFLAGS="-O2 -mtune=cortex-a8 -mfpu=neon"
+make
+cd ../fftw-3.2.2/
+wget http://code.google.com/p/fftw-neon/downloads/detail?name=fftw-3.2.2-neon-1.diff&can=2&q=
+patch -p1 < fftw-3.2.2-neon-1.diff
+./configure CXXFLAGS="-O2 -mtune=cortex-a8 -mfpu=neon" CFLAGS="-O2 -mtune=cortex-a8 -mfpu=neon"
+make
+sudo make install
+cd ../seti_boinc
+./_autosetup
+./configure --disable-server CXXFLAGS="-O2 -mtune=cortex-a8 -mfpu=neon" CFLAGS="-O2 -mtune=cortex-a8 -mfpu=neon"
+make
+
+
+ }}}||
+
+Now lets build SETI for the ARM instruction set
+
+
+||{{{> cd seti_boinc }}}||
+||{{{> fakeroot ./_autosetup }}}||
+||{{{> fakeroot ./configure --host=i386 --target=armel --disable-server CXXFLAGS="-O2 -mtune=cortex-a8 -mfpu=neon" CFLAGS="-O2 -mtune=cortex-a8 -mfpu=neon" }}}||
+||{{{> make }}}||
