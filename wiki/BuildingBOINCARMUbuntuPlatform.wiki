@@ -1,0 +1,14 @@
+#summary Instructions to build on an ARM target running Ubuntu
+
+= Introduction =
+
+By far the easiest way to port BOINC and SETI@Home to ARM/Linux
+
+
+
+= Details =
+
+Add your content here.  Format your content with:
+  * Text in *bold* or _italic_
+  * Headings, paragraphs, and lists
+  * Automatic links to other wiki pages
