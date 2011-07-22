@@ -1,4 +1,4 @@
-=Compiling BOINC on a ARM/Ubuntu platform=
+=Compiling Kernel on a ARM/Ubuntu platform=
 
 
 
