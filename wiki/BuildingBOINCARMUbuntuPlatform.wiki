@@ -38,3 +38,6 @@ patch -p1 < fftw-3.2.2-neon-1.diff
 make
 sudo make install
 }}}
+
+==== See Project Website ====
+http://code.google.com/p/fftw-neon/
