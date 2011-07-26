@@ -30,6 +30,8 @@ make
 }}}
 
 === Using Super Optimized Version of FFTW ===
+
+Project Link: http://code.google.com/p/fftw-neon/
 {{{
 cd ../fftw-3.2.2/
 wget http://code.google.com/p/fftw-neon/downloads/detail?name=fftw-3.2.2-neon-1.diff
@@ -38,6 +40,3 @@ patch -p1 < fftw-3.2.2-neon-1.diff
 make
 sudo make install
 }}}
-
-==== See Project Website ====
-http://code.google.com/p/fftw-neon/
