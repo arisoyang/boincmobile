@@ -1,4 +1,4 @@
-#summary List of PMU events for the Cortex-A8.
+#summary CPU profiling SETI@Home and list of PMU events for the Cortex-A8.
 = Cortex-A8 PMU Events and SETI data =
 <wiki:toc max_depth="5" />
 = PMU events for the Cortex-A8 = 
