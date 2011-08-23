@@ -19,7 +19,7 @@ First login to scratchbox:
 === Installing BOINC dependencies automatically ===
 
 
-||{{{> fakeroot apt-get install curl zlib autoconf m4 openssl libcurl4-openssl-dev }}}||
+||{{{> fakeroot apt-get install curl zlib autoconf m4 openssl libcurl4-openssl-dev libfftw3-dev}}}||
 
 
 === Installing BOINC dependencies manually ===
