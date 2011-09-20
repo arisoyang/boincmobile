@@ -2,7 +2,7 @@
 
 = Introduction =
 <wiki:toc max_depth="3" />
-
+= Cortex-A8 (i.MX53) =
 == Oprofile Cortex-A8 Events ==
 {{{
 lucid@lucid-desktop:~$ sudo opcontrol --list-events                             
