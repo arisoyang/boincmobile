@@ -1,7 +1,7 @@
 #summary One-sentence summary of this page.
 
 = Introduction =
-
+<wiki:toc max_depth="3" />
 
 == Oprofile Cortex-A8 Events ==
 {{{
