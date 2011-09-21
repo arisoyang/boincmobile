@@ -1,4 +1,4 @@
-#summary One-sentence summary of this page.
+#summary oprofile information and SETI data on all platforms
 
 = Introduction =
 <wiki:toc max_depth="3" />
@@ -2435,3 +2435,1171 @@ samples  %        symbol name
 1         0.0040  timer_handler()
 
 }}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=Intel Atom D525=
+
+== Oprofile Intel Atom Events ==
+{{{
+xbmc@atom:~/Documents/boinc/seti_boinc/client$ sudo opcontrol --list-events | more
+oprofile: available events for CPU type "Intel Atom"
+
+See Intel Architecture Developer's Manual Volume 3B, Appendix A and
+Intel Architecture Optimization Reference Manual (730795-001)
+
+CPU_CLK_UNHALTED: (counter: all)
+        Clock cycles when not halted (min count: 6000) 
+        Unit masks (default 0x0)
+        ----------
+        0x00: core_p Core cycles when core is not halted 
+        0x01: bus Bus cycles when core is not halted 
+        0x02: no_other Bus cycles when core is active and the other is halted 
+UNHALTED_REFERENCE_CYCLES: (counter: all)
+        Unhalted reference cycles (min count: 6000) 
+        Unit masks (default 0x1)
+        ----------
+        0x01: No unit mask 
+INST_RETIRED: (counter: all)
+        number of instructions retired (min count: 6000) 
+        Unit masks (default 0x1)
+        ----------
+        0x01: No unit mask 
+LLC_MISSES: (counter: all)
+        Last level cache demand requests from this core that missed the LLC (min count: 6000) 
+        Unit masks (default 0x41)
+        ----------
+        0x41: No unit mask 
+LLC_REFS: (counter: all)
+        Last level cache demand requests from this core (min count: 6000) 
+        Unit masks (default 0x4f)
+        ----------
+        0x4f: No unit mask 
+BR_INST_RETIRED: (counter: all)
+        number of branch instructions retired (min count: 500) 
+        Unit masks (default 0x0)
+        ----------
+        0x00: any Retired branch instructions 
+        0x01: pred_not_taken Retired branch instructions that were predicted not-taken 
+        0x02: mispred_not_taken Retired branch instructions that were mispredicted not-taken 
+        0x04: pred_taken Retired branch instructions that were predicted taken 
+        0x08: mispred_taken Retired branch instructions that were mispredicted taken 
+        0x0a: mispred Retired mispredicted branch instructions (precise event) 
+        0x0c: taken Retired taken branch instructions 
+        0x0f: any1 Retired branch instructions 
+BR_MISS_PRED_RETIRED: (counter: all)
+        number of mispredicted branches retired (precise) (min count: 500) 
+STORE_FORWARDS: (counter: all)
+        Good store forwards (min count: 6000) 
+        Unit masks (default 0x81)
+        ----------
+        0x81: good Good store forwards 
+SEGMENT_REG_LOADS: (counter: all)
+        Number of segment register loads (min count: 6000) 
+        Unit masks (default 0x0)
+        ----------
+        0x00: any Number of segment register loads 
+PREFETCH: (counter: all)
+        Streaming SIMD Extensions (SSE) Prefetch instructions executed (min count: 6000) 
+        Unit masks (default 0x1)
+        ----------
+        0x01: prefetcht0 Streaming SIMD Extensions (SSE) PrefetchT0 instructions executed 
+        0x06: sw_l2 Streaming SIMD Extensions (SSE) PrefetchT1 and PrefetchT2 instructions executed 
+        0x08: prefetchnta Streaming SIMD Extensions (SSE) Prefetch NTA instructions executed 
+DATA_TLB_MISSES: (counter: all)
+        Memory accesses that missed the DTLB (min count: 6000) 
+        Unit masks (default 0x7)
+
+        0x07: dtlb_miss Memory accesses that missed the DTLB 
+        0x05: dtlb_miss_ld DTLB misses due to load operations 
+        0x09: l0_dtlb_miss_ld L0_DTLB misses due to load operations 
+        0x06: dtlb_miss_st DTLB misses due to store operations 
+PAGE_WALKS: (counter: all)
+        Page walks (min count: 6000) 
+        Unit masks (default 0x3)
+        ----------
+        0x03: walks Number of page-walks executed 
+        0x03: cycles Duration of page-walks in core cycles 
+X87_COMP_OPS_EXE: (counter: all)
+        Floating point computational micro-ops (min count: 6000) 
+        Unit masks (default 0x81)
+        ----------
+        0x01: s Floating point computational micro-ops executed 
+        0x81: ar Floating point computational micro-ops retired 
+FP_ASSIST: (counter: all)
+        Floating point assists (min count: 6000) 
+        Unit masks (default 0x81)
+        ----------
+        0x81: ar Floating point assists 
+MUL: (counter: all)
+        Multiply operations (min count: 6000) 
+        Unit masks (default 0x1)
+        ----------
+        0x01: s Multiply operations executed 
+        0x81: ar Multiply operations retired 
+DIV: (counter: all)
+        Divide operations (min count: 6000) 
+        Unit masks (default 0x1)
+        ----------
+        0x01: s Divide operations executed 
+        0x81: ar Divide operations retired 
+CYCLES_DIV_BUSY: (counter: all)
+        Cycles the driver is busy (min count: 6000) 
+        Unit masks (default 0x1)
+        ----------
+        0x01: No unit mask 
+CORE: (counter: all)
+        Cycles L2 address bus is in use (min count: 6000) 
+        Unit masks (default 0x180)
+        ----------
+        0x180: all All cores. 
+        0x80: this This Core. 
+L2_DBUS_BUSY: (counter: all)
+        Cycles the L2 cache data bus is busy (min count: 6000) 
+        Unit masks (default 0x180)
+        ----------
+        0x180: all All cores. 
+        0x80: this This Core. 
+L2_LINES_IN: (counter: all)
+        L2 cache misses (min count: 500) 
+        Unit masks (default 0x1e0)
+        ----------
+        0x180: all All cores. 
+        0x80: this This Core. 
+        0x60: all All inclusive 
+        0x20: hw Hardware prefetch only 
+        0x00: exclude_hw Exclude hardware prefetch 
+L2_M_LINES_IN: (counter: all)
+        L2 cache line modifications (min count: 500) 
+        Unit masks (default 0x180)
+        ----------
+        0x180: all All cores. 
+        0x80: this This Core. 
+L2_LINES_OUT: (counter: all)
+        L2 cache lines evicted (min count: 500) 
+        Unit masks (default 0x1e0)
+        ----------
+        0x180: all All cores. 
+        0x80: this This Core. 
+        0x60: all All inclusive 
+        0x20: hw Hardware prefetch only 
+        0x00: exclude_hw Exclude hardware prefetch 
+L2_M_LINES_OUT: (counter: all)
+        Modified lines evicted from the L2 cache (min count: 500) 
+        Unit masks (default 0x1e0)
+        ----------
+        0x180: all All cores. 
+        0x80: this This Core. 
+        0x60: all All inclusive 
+        0x20: hw Hardware prefetch only 
+        0x00: exclude_hw Exclude hardware prefetch 
+L2_IFETCH: (counter: all)
+        L2 cacheable instruction fetch requests (min count: 6000) 
+        Unit masks (default 0x18f)
+        ----------
+        0x180: all All cores. 
+        0x80: this This Core. 
+        0x08: modified Counts modified state 
+        0x04: exclusive Counts exclusive state 
+        0x02: shared Counts shared state 
+        0x01: invalid Counts invalid state 
+L2_LD: (counter: all)
+        L2 cache reads (min count: 6000) 
+        Unit masks (default 0x1ef)
+        ----------
+        0x180: all All cores. 
+        0x80: this This Core.
+        0x60: all All inclusive 
+        0x20: hw Hardware prefetch only 
+        0x00: exclude_hw Exclude hardware prefetch 
+        0x08: modified Counts modified state 
+        0x04: exclusive Counts exclusive state 
+        0x02: shared Counts shared state 
+        0x01: invalid Counts invalid state 
+L2_ST: (counter: all)
+        L2 store requests (min count: 6000) 
+        Unit masks (default 0x18f)
+        ----------
+        0x180: all All cores. 
+        0x80: this This Core. 
+        0x08: modified Counts modified state 
+        0x04: exclusive Counts exclusive state 
+        0x02: shared Counts shared state 
+        0x01: invalid Counts invalid state 
+L2_LOCK: (counter: all)
+        L2 locked accesses (min count: 6000) 
+        Unit masks (default 0x18f)
+        ----------
+        0x180: all All cores. 
+        0x80: this This Core. 
+        0x08: modified Counts modified state 
+        0x04: exclusive Counts exclusive state 
+        0x02: shared Counts shared state 
+        0x01: invalid Counts invalid state 
+L2_RQSTS: (counter: all)
+        L2 cache requests (min count: 6000) 
+        Unit masks (default 0x1ef)
+        ----------
+        0x41: i_state L2 cache demand requests from this core that missed the L2 
+        0x4f: mesi L2 cache demand requests from this core 
+
+        0x180: all All cores. 
+        0x80: this This Core. 
+        0x60: all All inclusive 
+        0x20: hw Hardware prefetch only 
+        0x00: exclude_hw Exclude hardware prefetch 
+        0x08: modified Counts modified state 
+        0x04: exclusive Counts exclusive state 
+        0x02: shared Counts shared state 
+        0x01: invalid Counts invalid state 
+L2_REJECT_BUSQ: (counter: all)
+        Rejected L2 cache requests (min count: 500) 
+        Unit masks (default 0x1ef)
+        ----------
+        0x180: all All cores. 
+        0x80: this This Core. 
+        0x60: all All inclusive 
+        0x20: hw Hardware prefetch only 
+        0x00: exclude_hw Exclude hardware prefetch 
+        0x08: modified Counts modified state 
+        0x04: exclusive Counts exclusive state 
+        0x02: shared Counts shared state 
+        0x01: invalid Counts invalid state 
+L2_NO_REQ: (counter: all)
+        Cycles no L2 cache requests are pending (min count: 6000) 
+        Unit masks (default 0x180)
+        ----------
+        0x180: all All cores. 
+        0x80: this This Core. 
+EIST_TRANS: (counter: all)
+        Number of Enhanced Intel SpeedStep(R) Technology (EIST) transitions (min count: 6000) 
+THERMAL_TRIP: (counter: all)
+        Number of thermal trips (min count: 6000) 
+        Unit masks (default 0xc0)
+        ----------
+        0xc0: thermal_trip Number of thermal trips. 
+L1D_CACHE: (counter: all)
+        L1d Cache accesses (min count: 6000) 
+        Unit masks (default 0x21)
+        ----------
+        0x21: ld L1 Cacheable Data Reads 
+        0x22: st L1 Cacheable Data Writes 
+BUS_REQUEST_OUTSTANDING: (counter: all)
+        Outstanding cacheable data read bus requests duration (min count: 6000) 
+        Unit masks (default 0x180)
+        ----------
+        0x180: all All cores. 
+        0x80: this This Core. 
+        0x00: this This agent 
+        0x40: any Include any agents 
+BUS_BNR_DRV: (counter: all)
+        Number of Bus Not Ready signals asserted (min count: 6000) 
+        Unit masks (default 0x0)
+        ----------
+        0x00: this This agent 
+        0x40: any Include any agents 
+BUS_DRDY_CLOCKS: (counter: all)
+        Bus cycles when data is sent on the bus (min count: 6000) 
+        Unit masks (default 0x0)
+        ----------
+        0x00: this This agent 
+        0x40: any Include any agents 
+BUS_LOCK_CLOCKS: (counter: all)
+        Bus cycles when a LOCK signal is asserted. (min count: 6000) 
+        Unit masks (default 0x180)
+        ----------
+        0x180: all All cores. 
+        0x80: this This Core. 
+        0x00: this This agent 
+        0x40: any Include any agents 
+BUS_DATA_RCV: (counter: all)
+        Bus cycles while processor receives data (min count: 6000) 
+        Unit masks (default 0x180)
+        ----------
+        0x180: all All cores. 
+        0x80: this This Core. 
+BUS_TRANS_BRD: (counter: all)
+        Burst read bus transactions (min count: 500) 
+        Unit masks (default 0x180)
+        ----------
+        0x180: all All cores. 
+        0x80: this This Core. 
+        0x00: this This agent 
+        0x40: any Include any agents 
+BUS_TRANS_RFO: (counter: all)
+        RFO bus transactions (min count: 500) 
+        Unit masks (default 0x180)
+        ----------
+        0x180: all All cores. 
+        0x80: this This Core. 
+        0x00: this This agent 
+        0x40: any Include any agents 
+BUS_TRANS_WB: (counter: all)
+        Explicit writeback bus transactions (min count: 500) 
+        Unit masks (default 0x180)
+        ----------
+        0x180: all All cores. 
+        0x80: this This Core. 
+        0x00: this This agent 
+        0x40: any Include any agents
+BUS_TRANS_IFETCH: (counter: all)
+        Instruction-fetch bus transactions. (min count: 500) 
+        Unit masks (default 0x180)
+        ----------
+        0x180: all All cores. 
+        0x80: this This Core. 
+        0x00: this This agent 
+        0x40: any Include any agents 
+BUS_TRANS_INVAL: (counter: all)
+        Invalidate bus transactions (min count: 500) 
+        Unit masks (default 0x180)
+        ----------
+        0x180: all All cores. 
+        0x80: this This Core. 
+        0x00: this This agent 
+        0x40: any Include any agents 
+BUS_TRANS_PWR: (counter: all)
+        Partial write bus transaction. (min count: 500) 
+        Unit masks (default 0x180)
+        ----------
+        0x180: all All cores. 
+        0x80: this This Core. 
+        0x00: this This agent 
+        0x40: any Include any agents 
+BUS_TRANS_P: (counter: all)
+        Partial bus transactions (min count: 500) 
+        Unit masks (default 0x180)
+        ----------
+        0x180: all All cores. 
+        0x80: this This Core. 
+        0x00: this This agent 
+        0x40: any Include any agents 
+BUS_TRANS_IO: (counter: all)
+
+        IO bus transactions (min count: 500) 
+        Unit masks (default 0x180)
+        ----------
+        0x180: all All cores. 
+        0x80: this This Core. 
+        0x00: this This agent 
+        0x40: any Include any agents 
+BUS_TRANS_DEF: (counter: all)
+        Deferred bus transactions (min count: 500) 
+        Unit masks (default 0x180)
+        ----------
+        0x180: all All cores. 
+        0x80: this This Core. 
+        0x00: this This agent 
+        0x40: any Include any agents 
+BUS_TRANS_BURST: (counter: all)
+        Burst (full cache-line) bus transactions. (min count: 500) 
+        Unit masks (default 0x180)
+        ----------
+        0x180: all All cores. 
+        0x80: this This Core. 
+        0x00: this This agent 
+        0x40: any Include any agents 
+BUS_TRANS_MEM: (counter: all)
+        Memory bus transactions (min count: 500) 
+        Unit masks (default 0x180)
+        ----------
+        0x180: all All cores. 
+        0x80: this This Core. 
+        0x00: this This agent 
+        0x40: any Include any agents 
+BUS_TRANS_ANY: (counter: all)
+        All bus transactions (min count: 500)
+        Unit masks (default 0x180)
+        ----------
+        0x180: all All cores. 
+        0x80: this This Core. 
+        0x00: this This agent 
+        0x40: any Include any agents 
+EXT_SNOOP: (counter: all)
+        External snoops (min count: 500) 
+        Unit masks (default 0x18f)
+        ----------
+        0x180: all All cores. 
+        0x80: this This Core. 
+        0x08: modified Counts modified state 
+        0x04: exclusive Counts exclusive state 
+        0x02: shared Counts shared state 
+        0x01: invalid Counts invalid state 
+BUS_HIT_DRV: (counter: all)
+        HIT signal asserted (min count: 500) 
+        Unit masks (default 0x0)
+        ----------
+        0x00: this This agent 
+        0x40: any Include any agents 
+BUS_HITM_DRV: (counter: all)
+        HITM signal asserted (min count: 500) 
+        Unit masks (default 0x0)
+        ----------
+        0x00: this This agent 
+        0x40: any Include any agents 
+BUSQ_EMPTY: (counter: all)
+        Bus queue is empty (min count: 500) 
+        Unit masks (default 0x180)
+        ----------
+        0x180: all All cores.
+
+        0x80: this This Core. 
+SNOOP_STALL_DRV: (counter: all)
+        Bus stalled for snoops (min count: 6000) 
+        Unit masks (default 0x180)
+        ----------
+        0x180: all All cores. 
+        0x80: this This Core. 
+        0x00: this This agent 
+        0x40: any Include any agents 
+BUS_IO_WAIT: (counter: all)
+        IO requests waiting in the bus queue (min count: 6000) 
+        Unit masks (default 0x180)
+        ----------
+        0x180: all All cores. 
+        0x80: this This Core. 
+ICACHE: (counter: all)
+        Instruction cache accesses (min count: 6000) 
+        Unit masks (default 0x3)
+        ----------
+        0x03: accesses Instruction fetches 
+        0x02: misses Icache miss 
+ITLB: (counter: all)
+        ITLB events (min count: 6000) 
+        Unit masks (default 0x4)
+        ----------
+        0x04: flush ITLB flushes 
+        0x02: misses ITLB misses 
+MACRO_INSTS: (counter: all)
+        instructions decoded (min count: 6000) 
+        Unit masks (default 0x3)
+        ----------
+        0x02: cisc_decoded CISC macro instructions decoded 
+        0x03: all_decoded All Instructions decoded
+
+SIMD_UOPS_EXEC: (counter: all)
+        SIMD micro-ops executed (min count: 6000) 
+        Unit masks (default 0x80)
+        ----------
+        0x00: s SIMD micro-ops executed (excluding stores) 
+        0x80: ar SIMD micro-ops retired (excluding stores) 
+SIMD_SAT_UOP_EXEC: (counter: all)
+        SIMD saturated arithmetic micro-ops executed (min count: 6000) 
+        Unit masks (default 0x0)
+        ----------
+        0x00: s SIMD saturated arithmetic micro-ops executed 
+        0x80: ar SIMD saturated arithmetic micro-ops retired 
+SIMD_UOP_TYPE_EXEC: (counter: all)
+        SIMD packed microops executed (min count: 6000) 
+        Unit masks (default 0x1)
+        ----------
+        0x01: s SIMD packed multiply microops executed 
+        0x81: ar SIMD packed multiply microops retired 
+        0x02: s SIMD packed shift micro-ops executed 
+        0x82: ar SIMD packed shift micro-ops retired 
+        0x04: s SIMD pack micro-ops executed 
+        0x84: ar SIMD pack micro-ops retired 
+        0x08: s SIMD unpack micro-ops executed 
+        0x88: ar SIMD unpack micro-ops retired 
+        0x10: s SIMD packed logical microops executed 
+        0x90: ar SIMD packed logical microops retired 
+        0x20: s SIMD packed arithmetic micro-ops executed 
+        0xa0: ar SIMD packed arithmetic micro-ops retired 
+UOPS_RETIRED: (counter: all)
+        Micro-ops retired (min count: 6000) 
+        Unit masks (default 0x10)
+        ----------
+        0x10: any Micro-ops retired
+
+MACHINE_CLEARS: (counter: all)
+        Self-Modifying Code detected (min count: 6000) 
+        Unit masks (default 0x1)
+        ----------
+        0x01: No unit mask 
+CYCLES_INT_MASKED: (counter: all)
+        Cycles during which interrupts are disabled (min count: 6000) 
+        Unit masks (default 0x1)
+        ----------
+        0x01: cycles_int_masked Cycles during which interrupts are disabled 
+        0x02: cycles_int_pending_and_masked Cycles during which interrupts are pending and disabled 
+SIMD_INST_RETIRED: (counter: all)
+        Retired Streaming SIMD Extensions (SSE) instructions (min count: 6000) 
+        Unit masks (default 0x1)
+        ----------
+        0x01: packed_single Retired Streaming SIMD Extensions (SSE) packed-single instructions 
+        0x02: scalar_single Retired Streaming SIMD Extensions (SSE) scalar-single instructions 
+        0x04: packed_double Retired Streaming SIMD Extensions 2 (SSE2) packed-double instructions 
+        0x08: scalar_double Retired Streaming SIMD Extensions 2 (SSE2) scalar-double instructions 
+        0x10: vector Retired Streaming SIMD Extensions 2 (SSE2) vector instructions 
+        0x1f: any Retired Streaming SIMD instructions 
+HW_INT_RCV: (counter: all)
+        Hardware interrupts received (min count: 6000) 
+SIMD_COMP_INST_RETIRED: (counter: all)
+        Retired computational Streaming SIMD Extensions (SSE) instructions. (min count: 6000) 
+        Unit masks (default 0x1)
+        ----------
+        0x01: packed_single Retired computational Streaming SIMD Extensions (SSE) packed-single 
+              instructions 
+        0x02: scalar_single Retired computational Streaming SIMD Extensions (SSE) scalar-single 
+              instructions 
+        0x04: packed_double Retired computational Streaming SIMD Extensions 2 (SSE2) packed-double 
+              instructions
+
+        Retired computational Streaming SIMD Extensions (SSE) instructions. (min count: 6000) 
+        Unit masks (default 0x1)
+        ----------
+        0x01: packed_single Retired computational Streaming SIMD Extensions (SSE) packed-single 
+              instructions 
+        0x02: scalar_single Retired computational Streaming SIMD Extensions (SSE) scalar-single 
+              instructions 
+        0x04: packed_double Retired computational Streaming SIMD Extensions 2 (SSE2) packed-double 
+              instructions 
+        0x08: scalar_double Retired computational Streaming SIMD Extensions 2 (SSE2) scalar-double 
+              instructions 
+MEM_LOAD_RETIRED: (counter: all)
+        Retired loads (min count: 6000) 
+        Unit masks (default 0x1)
+        ----------
+        0x01: l2_hit Retired loads that hit the L2 cache (precise event) 
+        0x02: l2_miss Retired loads that miss the L2 cache (precise event) 
+        0x04: dtlb_miss Retired loads that miss the DTLB (precise event) 
+SIMD_ASSIST: (counter: all)
+        SIMD assists invoked (min count: 6000) 
+SIMD_INSTR_RETIRED: (counter: all)
+        SIMD Instructions retired (min count: 6000) 
+SIMD_SAT_INSTR_RETIRED: (counter: all)
+        Saturated arithmetic instructions retired (min count: 6000) 
+BR_INST_DECODED: (counter: all)
+        Branch instructions decoded (min count: 6000) 
+BOGUS_BR: (counter: all)
+        Bogus branches (min count: 6000) 
+BACLEARS: (counter: all)
+        BACLEARS asserted (min count: 6000) 
+        Unit masks (default 0x1)
+        ----------
+        0x01: No unit mask 
+}}}
+
+== Event Data on Atom D525 ==
+
+{{{
+Tue Sep 20 19:16:41 CDT 2011
+CPU: Intel Atom, speed 1795.72 MHz (estimated)
+Counted CPU_CLK_UNHALTED events (Clock cycles when not halted) with a unit mask of 0x00 (core_p Core cycles when core is not halted) count 10000
+CPU_CLK_UNHALT...|
+  samples|      %|
+------------------
+ 10044490 94.8466 seti_boinc
+	CPU_CLK_UNHALT...|
+	  samples|      %|
+	------------------
+	  9991805 99.4755 seti_boinc
+	    52685  0.5245 [vdso] (tgid:6081 range:0x2a3000-0x2a4000)
+   372738  3.5196 oprofiled
+	CPU_CLK_UNHALT...|
+	  samples|      %|
+	------------------
+	   372629 99.9708 oprofiled
+	      109  0.0292 [vdso] (tgid:6351 range:0x2c7000-0x2c8000)
+    60232  0.5687 no-vmlinux
+    36359  0.3433 libc-2.12.1.so
+    12218  0.1154 libglib-2.0.so.0.2600.1
+    10386  0.0981 bash
+	CPU_CLK_UNHALT...|
+	  samples|      %|
+	------------------
+	    10357 99.7208 bash
+	       27  0.2600 [vdso] (tgid:6423 range:0x780000-0x781000)
+	        2  0.0193 [vdso] (tgid:6080 range:0x600000-0x601000)
+     8743  0.0826 dbus-daemon
+	CPU_CLK_UNHALT...|
+	  samples|      %|
+	------------------
+	     8731 99.8627 dbus-daemon
+	       12  0.1373 [vdso] (tgid:821 range:0x259000-0x25a000)
+     7237  0.0683 ld-2.12.1.so
+     6942  0.0656 libgobject-2.0.so.0.2600.1
+     6847  0.0647 libdbus-1.so.3.5.2
+     5907  0.0558 libcairo.so.2.11000.0
+     4624  0.0437 libpthread-2.12.1.so
+     4089  0.0386 libgio-2.0.so.0.2600.1
+     1576  0.0149 Xorg
+	CPU_CLK_UNHALT...|
+	  samples|      %|
+	------------------
+	     1514 96.0660 Xorg
+	       62  3.9340 [vdso] (tgid:1265 range:0x78d000-0x78e000)
+      708  0.0067 libgdk-x11-2.0.so.0.2200.0
+      617  0.0058 nvidia_drv.so
+      600  0.0057 libgthread-2.0.so.0.2600.1
+      530  0.0050 libX11.so.6.3.0
+      469  0.0044 ophelp
+      459  0.0043 libeggdbus-1.so.0.0.0
+      453  0.0043 libdbus-glib-1.so.2.1.0
+      387  0.0037 libpolkit-backend-1.so.0.0.0
+      367  0.0035 compiz
+	CPU_CLK_UNHALT...|
+	  samples|      %|
+	------------------
+	      356 97.0027 compiz
+	       11  2.9973 [vdso] (tgid:1540 range:0xead000-0xeae000)
+      338  0.0032 libxcb.so.1.1.0
+      183  0.0017 mawk
+      177  0.0017 libpolkit-gobject-1.so.0.0.0
+      151  0.0014 NetworkManager
+	CPU_CLK_UNHALT...|
+	  samples|      %|
+	------------------
+	      141 93.3775 NetworkManager
+	       10  6.6225 [vdso] (tgid:828 range:0x422000-0x423000)
+      121  0.0011 polkitd
+	CPU_CLK_UNHALT...|
+	  samples|      %|
+	------------------
+	      121 100.000 [vdso] (tgid:1331 range:0x672000-0x673000)
+      120  0.0011 libgtk-x11-2.0.so.0.2200.0
+      105 9.9e-04 irqbalance
+	CPU_CLK_UNHALT...|
+	  samples|      %|
+	------------------
+	       87 82.8571 irqbalance
+	       18 17.1429 [vdso] (tgid:951 range:0xa83000-0xa84000)
+      102 9.6e-04 libpam.so.0.82.2
+      100 9.4e-04 libnvidia-glcore.so.260.19.06
+       89 8.4e-04 dash
+       89 8.4e-04 sudo
+       87 8.2e-04 libORBit-2.so.0.1.0
+       79 7.5e-04 grep
+       68 6.4e-04 libpangoft2-1.0.so.0.2800.2
+       62 5.9e-04 libgvfscommon.so.0.0.0
+       62 5.9e-04 rsyslogd
+       60 5.7e-04 librt-2.12.1.so
+       58 5.5e-04 libpango-1.0.so.0.2800.2
+       52 4.9e-04 console-kit-daemon
+	CPU_CLK_UNHALT...|
+	  samples|      %|
+	------------------
+	       42 80.7692 console-kit-daemon
+	       10 19.2308 [vdso] (tgid:1191 range:0x3a6000-0x3a7000)
+       49 4.6e-04 libm-2.12.1.so
+       49 4.6e-04 libnss_compat-2.12.1.so
+       46 4.3e-04 libdl-2.12.1.so
+       41 3.9e-04 libusbmuxd.so.1.0.4
+       38 3.6e-04 libfade.so
+       34 3.2e-04 nm-applet
+	CPU_CLK_UNHALT...|
+	  samples|      %|
+	------------------
+	       21 61.7647 nm-applet
+	       13 38.2353 [vdso] (tgid:1543 range:0x35d000-0x35e000)
+       34 3.2e-04 libnm-glib.so.2.4.1
+       27 2.5e-04 gnome-screensaver
+	CPU_CLK_UNHALT...|
+	  samples|      %|
+	------------------
+	       15 55.5556 gnome-screensaver
+	       12 44.4444 [vdso] (tgid:1619 range:0x853000-0x854000)
+       27 2.5e-04 udisks-daemon
+	CPU_CLK_UNHALT...|
+	  samples|      %|
+	------------------
+	       19 70.3704 udisks-daemon
+	        8 29.6296 [vdso] (tgid:1601 range:0x77a000-0x77b000)
+       25 2.4e-04 libstartup-notification-1.so.0.0.0
+       25 2.4e-04 libwnck-1.so.22.3.30
+       24 2.3e-04 libdecoration.so
+       24 2.3e-04 libgconf-2.so.4.1.5
+       23 2.2e-04 libxklavier.so.16.0.0
+       23 2.2e-04 sshd
+	CPU_CLK_UNHALT...|
+	  samples|      %|
+	------------------
+	       22 95.6522 sshd
+	        1  4.3478 [vdso] (tgid:3059 range:0x1e3000-0x1e4000)
+       21 2.0e-04 evdev_drv.so
+       20 1.9e-04 libpulse-mainloop-glib.so.0.0.4
+       18 1.7e-04 libncurses.so.5.7
+       18 1.7e-04 wpa_supplicant
+       18 1.7e-04 libvpswitch.so
+       18 1.7e-04 libwall.so
+       16 1.5e-04 libpopt.so.0.0.0
+       16 1.5e-04 libudev.so.0.9.1
+       15 1.4e-04 libexpo.so
+       14 1.3e-04 libcompizconfig.so.0.0.0
+       13 1.2e-04 libcrypto.so.0.9.8
+       13 1.2e-04 libresizeinfo.so
+       13 1.2e-04 libstaticswitcher.so
+       13 1.2e-04 libXi.so.6.1.0
+       12 1.1e-04 libscale.so
+       12 1.1e-04 libkeyboard.so
+       12 1.1e-04 libnm-util.so.1.6.0
+       11 1.0e-04 ls
+       11 1.0e-04 libanimation.so
+       11 1.0e-04 libccp.so
+       11 1.0e-04 gconfd-2
+	CPU_CLK_UNHALT...|
+	  samples|      %|
+	------------------
+	       10 90.9091 gconfd-2
+	        1  9.0909 [vdso] (tgid:1515 range:0x9a7000-0x9a8000)
+       11 1.0e-04 libpangocairo-1.0.so.0.2800.2
+       10 9.4e-05 libnss_nis-2.12.1.so
+       10 9.4e-05 libsession.so
+       10 9.4e-05 libXext.so.6.4.0
+        9 8.5e-05 rm
+        9 8.5e-05 init
+        9 8.5e-05 gnome-panel
+	CPU_CLK_UNHALT...|
+	  samples|      %|
+	------------------
+	        5 55.5556 [vdso] (tgid:1549 range:0xac4000-0xac5000)
+	        4 44.4444 gnome-panel
+        9 8.5e-05 seq
+        9 8.5e-05 liba11y-keyboard.so
+        9 8.5e-05 gnome-settings-daemon
+	CPU_CLK_UNHALT...|
+	  samples|      %|
+	------------------
+	        9 100.000 [vdso] (tgid:1523 range:0x579000-0x57a000)
+        9 8.5e-05 libextmod.so
+        8 7.6e-05 gnome-terminal
+	CPU_CLK_UNHALT...|
+	  samples|      %|
+	------------------
+	        5 62.5000 [vdso] (tgid:3459 range:0x864000-0x865000)
+	        3 37.5000 gnome-terminal
+        8 7.6e-05 gtk-window-decorator
+	CPU_CLK_UNHALT...|
+	  samples|      %|
+	------------------
+	        4 50.0000 gtk-window-decorator
+	        4 50.0000 [vdso] (tgid:1621 range:0x387000-0x388000)
+        8 7.6e-05 libmove.so
+        8 7.6e-05 libplace.so
+        8 7.6e-05 libregex.so
+        8 7.6e-05 libscaleaddon.so
+        8 7.6e-05 gvfs-afc-volume-monitor
+	CPU_CLK_UNHALT...|
+	  samples|      %|
+	------------------
+	        8 100.000 [vdso] (tgid:1613 range:0x45d000-0x45e000)
+        8 7.6e-05 libpulse.so.0.12.2
+        7 6.6e-05 cat
+        7 6.6e-05 libresize.so
+        7 6.6e-05 libXrender.so.1.3.0
+        7 6.6e-05 libpulsecommon-0.9.21.so
+        5 4.7e-05 libnss_files-2.12.1.so
+        5 4.7e-05 libselinux.so.1
+        5 4.7e-05 pam_limits.so
+        5 4.7e-05 libsnap.so
+        5 4.7e-05 libmurrine.so
+        5 4.7e-05 libnl.so.1.1
+        5 4.7e-05 libplc4.so
+        5 4.7e-05 libwfb.so
+        4 3.8e-05 libfuse.so.2.8.4
+        4 3.8e-05 gnome-power-manager
+	CPU_CLK_UNHALT...|
+	  samples|      %|
+	------------------
+	        3 75.0000 gnome-power-manager
+	        1 25.0000 [vdso] (tgid:1522 range:0x298000-0x299000)
+        4 3.8e-05 ssh-agent
+        4 3.8e-05 libgconf.so
+        4 3.8e-05 clock-applet
+	CPU_CLK_UNHALT...|
+	  samples|      %|
+	------------------
+	        2 50.0000 clock-applet
+	        2 50.0000 [vdso] (tgid:1642 range:0x32d000-0x32e000)
+        4 3.8e-05 libavahi-common.so.3.5.2
+        4 3.8e-05 libnspr4.so
+        4 3.8e-05 libpixman-1.so.0.18.4
+        4 3.8e-05 libGL.so.260.19.06
+        3 2.8e-05 libz.so.1.2.3.4
+        3 2.8e-05 pam_ecryptfs.so
+        3 2.8e-05 expr
+        3 2.8e-05 gedit
+	CPU_CLK_UNHALT...|
+	  samples|      %|
+	------------------
+	        3 100.000 [vdso] (tgid:4336 range:0xe67000-0xe68000)
+        3 2.8e-05 libkeybindings.so
+        3 2.8e-05 libck-connector.so.0.0.0
+        3 2.8e-05 rtkit-daemon
+        3 2.8e-05 cron
+        2 1.9e-05 mkdir
+        2 1.9e-05 libcrypt-2.12.1.so
+        2 1.9e-05 libnih.so.1.0.0
+        2 1.9e-05 libnsl-2.12.1.so
+        2 1.9e-05 libnss_dns-2.12.1.so
+        2 1.9e-05 pam_ck_connector.so
+        2 1.9e-05 pam_env.so
+        2 1.9e-05 mount.ecryptfs_private
+        2 1.9e-05 dirname
+        2 1.9e-05 id
+        2 1.9e-05 libezoom.so
+        2 1.9e-05 libworkarounds.so
+        2 1.9e-05 wnck-applet
+	CPU_CLK_UNHALT...|
+	  samples|      %|
+	------------------
+	        2 100.000 [vdso] (tgid:1627 range:0x5a9000-0x5aa000)
+        2 1.9e-05 libhousekeeping.so
+        2 1.9e-05 libmedia-keys.so
+        2 1.9e-05 libmouse.so
+        2 1.9e-05 libxrandr.so
+        2 1.9e-05 libavahi-core.so.7.0.0
+        2 1.9e-05 libecryptfs.so.0.0.0
+        2 1.9e-05 libgnome-desktop-2.so.17.1.4
+        2 1.9e-05 libgnome-keyring.so.0.1.1
+        2 1.9e-05 libk5crypto.so.3.1
+        2 1.9e-05 libnss3.so
+        2 1.9e-05 libsmime3.so
+        2 1.9e-05 pango-basic-fc.so
+        2 1.9e-05 polkit-gnome-authentication-agent-1
+        2 1.9e-05 avahi-daemon
+	CPU_CLK_UNHALT...|
+	  samples|      %|
+	------------------
+	        1 50.0000 avahi-daemon
+	        1 50.0000 [vdso] (tgid:832 range:0xe86000-0xe87000)
+        1 9.4e-06 sleep
+        1 9.4e-06 libacl.so.1.1.0
+        1 9.4e-06 libattr.so.1.1.0
+        1 9.4e-06 libgcc_s.so.1
+        1 9.4e-06 libkeyutils.so.1.3
+        1 9.4e-06 libnss_mdns4.so.2
+        1 9.4e-06 libnss_mdns4_minimal.so.2
+        1 9.4e-06 libpam_misc.so.0.82.0
+        1 9.4e-06 libwrap.so.0.7.6
+        1 9.4e-06 pam_gnome_keyring.so
+        1 9.4e-06 pam_mail.so
+        1 9.4e-06 pam_motd.so
+        1 9.4e-06 pam_nologin.so
+        1 9.4e-06 bluetooth-applet
+	CPU_CLK_UNHALT...|
+	  samples|      %|
+	------------------
+	        1 100.000 [vdso] (tgid:1550 range:0x726000-0x727000)
+        1 9.4e-06 opjitconv
+        1 9.4e-06 libXfixes.so.3.1.0
+        1 9.4e-06 libbonoboui-2.so.0.0.0
+        1 9.4e-06 libnssutil3.so
+        1 9.4e-06 libpanel-applet-2.so.0.2.68
+        1 9.4e-06 libssl3.so
+        1 9.4e-06 libglx.so.260.19.06
+        1 9.4e-06 libbluetooth-util.so
+        1 9.4e-06 imuxsock.so
+ 
+Tue Sep 20 19:18:46 CDT 2011
+CPU: Intel Atom, speed 1795.72 MHz (estimated)
+Counted INST_RETIRED events (number of instructions retired) with a unit mask of 0x01 (No unit mask) count 10000
+INST_RETIRED:1...|
+  samples|      %|
+------------------
+  6536892 96.7327 seti_boinc
+   196153  2.9027 oprofiled
+     8937  0.1322 libc-2.12.1.so
+     5060  0.0749 bash
+	INST_RETIRED:1...|
+	  samples|      %|
+	------------------
+	     5059 99.9802 bash
+	        1  0.0198 [vdso] (tgid:6918 range:0x483000-0x484000)
+     3682  0.0545 libcairo.so.2.11000.0
+     2641  0.0391 ld-2.12.1.so
+      838  0.0124 dbus-daemon
+      623  0.0092 libglib-2.0.so.0.2600.1
+      536  0.0079 libdbus-1.so.3.5.2
+      355  0.0053 libpthread-2.12.1.so
+      321  0.0048 libgobject-2.0.so.0.2600.1
+      296  0.0044 Xorg
+      270  0.0040 ophelp
+      189  0.0028 nvidia_drv.so
+      181  0.0027 libORBit-2.so.0.1.0
+      143  0.0021 libgconf-2.so.4.1.5
+       62 9.2e-04 libpam.so.0.82.2
+       45 6.7e-04 libgdk-x11-2.0.so.0.2200.0
+       41 6.1e-04 libX11.so.6.3.0
+       41 6.1e-04 libpangoft2-1.0.so.0.2800.2
+       35 5.2e-04 no-vmlinux
+       33 4.9e-04 mawk
+       32 4.7e-04 dash
+       28 4.1e-04 grep
+       25 3.7e-04 libdbus-glib-1.so.2.1.0
+       23 3.4e-04 libxcb.so.1.1.0
+       16 2.4e-04 NetworkManager
+       16 2.4e-04 irqbalance
+       14 2.1e-04 sudo
+       14 2.1e-04 libgthread-2.0.so.0.2600.1
+       13 1.9e-04 libpango-1.0.so.0.2800.2
+       11 1.6e-04 compiz
+       11 1.6e-04 libnvidia-glcore.so.260.19.06
+       11 1.6e-04 rsyslogd
+        9 1.3e-04 libgtk-x11-2.0.so.0.2200.0
+        8 1.2e-04 libnm-util.so.1.6.0
+        5 7.4e-05 libnss_compat-2.12.1.so
+        5 7.4e-05 wpa_supplicant
+        5 7.4e-05 libgconfbackend-xml.so
+        5 7.4e-05 gconfd-2
+        5 7.4e-05 libgio-2.0.so.0.2600.1
+        4 5.9e-05 libm-2.12.1.so
+        3 4.4e-05 libnss_files-2.12.1.so
+        3 4.4e-05 nm-applet
+        3 4.4e-05 libnm-glib.so.2.4.1
+        2 3.0e-05 ls
+        2 3.0e-05 libcrypto.so.0.9.8
+        2 3.0e-05 libfade.so
+        2 3.0e-05 libscale.so
+        2 3.0e-05 libpangocairo-1.0.so.0.2800.2
+        2 3.0e-05 libxklavier.so.16.0.0
+        2 3.0e-05 rtkit-daemon
+        2 3.0e-05 udisks-daemon
+	INST_RETIRED:1...|
+	  samples|      %|
+	------------------
+	        2 100.000 [vdso] (tgid:1601 range:0x77a000-0x77b000)
+        2 3.0e-05 libextmod.so
+        2 3.0e-05 sshd
+	INST_RETIRED:1...|
+	  samples|      %|
+	------------------
+	        1 50.0000 sshd
+	        1 50.0000 [vdso] (tgid:3059 range:0x1e3000-0x1e4000)
+        1 1.5e-05 libdl-2.12.1.so
+        1 1.5e-05 libpopt.so.0.0.0
+        1 1.5e-05 librt-2.12.1.so
+        1 1.5e-05 libselinux.so.1
+        1 1.5e-05 pam_env.so
+        1 1.5e-05 pam_limits.so
+        1 1.5e-05 gnome-panel
+	INST_RETIRED:1...|
+	  samples|      %|
+	------------------
+	        1 100.000 [vdso] (tgid:1549 range:0xac4000-0xac5000)
+        1 1.5e-05 libanimation.so
+        1 1.5e-05 libdecoration.so
+        1 1.5e-05 libezoom.so
+        1 1.5e-05 libmove.so
+        1 1.5e-05 libsession.so
+        1 1.5e-05 libstaticswitcher.so
+        1 1.5e-05 libwall.so
+        1 1.5e-05 libgconf.so
+        1 1.5e-05 liba11y-keyboard.so
+        1 1.5e-05 libmouse.so
+        1 1.5e-05 libmurrine.so
+        1 1.5e-05 gvfs-afc-volume-monitor
+	INST_RETIRED:1...|
+	  samples|      %|
+	------------------
+	        1 100.000 [vdso] (tgid:1613 range:0x45d000-0x45e000)
+        1 1.5e-05 libXdamage.so.1.1.0
+        1 1.5e-05 libcompizconfig.so.0.0.0
+        1 1.5e-05 libgnome-keyring.so.0.1.1
+        1 1.5e-05 libpulse-mainloop-glib.so.0.0.4
+        1 1.5e-05 libstartup-notification-1.so.0.0.0
+        1 1.5e-05 libwnck-1.so.22.3.30
+        1 1.5e-05 libwfb.so
+ 
+Tue Sep 20 19:20:50 CDT 2011
+CPU: Intel Atom, speed 1795.72 MHz (estimated)
+Counted LLC_MISSES events (Last level cache demand requests from this core that missed the LLC) with a unit mask of 0x41 (No unit mask) count 10000
+ LLC_MISSES:10000|
+  samples|      %|
+------------------
+    26964 99.6821 seti_boinc
+       13  0.0481 libc-2.12.1.so
+       11  0.0407 ld-2.12.1.so
+        9  0.0333 libglib-2.0.so.0.2600.1
+        7  0.0259 bash
+        7  0.0259 libdbus-1.so.3.5.2
+        7  0.0259 Xorg
+        5  0.0185 compiz
+        5  0.0185 libgdk-x11-2.0.so.0.2200.0
+        3  0.0111 no-vmlinux
+        2  0.0074 dbus-daemon
+        2  0.0074 libORBit-2.so.0.1.0
+        2  0.0074 libX11.so.6.3.0
+        2  0.0074 libgobject-2.0.so.0.2600.1
+        1  0.0037 grep
+        1  0.0037 libpthread-2.12.1.so
+        1  0.0037 libvpswitch.so
+        1  0.0037 gnome-settings-daemon
+	 LLC_MISSES:10000|
+	  samples|      %|
+	------------------
+	        1 100.000 [vdso] (tgid:1523 range:0x579000-0x57a000)
+        1  0.0037 libdbus-glib-1.so.2.1.0
+        1  0.0037 libgthread-2.0.so.0.2600.1
+        1  0.0037 libgvfscommon.so.0.0.0
+        1  0.0037 libpixman-1.so.0.18.4
+        1  0.0037 libGL.so.260.19.06
+        1  0.0037 nvidia_drv.so
+        1  0.0037 NetworkManager
+ 
+Tue Sep 20 19:22:53 CDT 2011
+CPU: Intel Atom, speed 1795.72 MHz (estimated)
+Counted LLC_REFS events (Last level cache demand requests from this core) with a unit mask of 0x4f (No unit mask) count 10000
+   LLC_REFS:10000|
+  samples|      %|
+------------------
+   183647 99.7626 seti_boinc
+	   LLC_REFS:10000|
+	  samples|      %|
+	------------------
+	   183646 99.9995 seti_boinc
+	        1 5.4e-04 [vdso] (tgid:6081 range:0x2a3000-0x2a4000)
+       77  0.0418 libc-2.12.1.so
+       62  0.0337 ld-2.12.1.so
+       51  0.0277 bash
+       44  0.0239 libcairo.so.2.11000.0
+       30  0.0163 libglib-2.0.so.0.2600.1
+       24  0.0130 oprofiled
+       23  0.0125 dbus-daemon
+       20  0.0109 no-vmlinux
+       20  0.0109 Xorg
+       13  0.0071 libdbus-1.so.3.5.2
+       13  0.0071 libX11.so.6.3.0
+       11  0.0060 libgobject-2.0.so.0.2600.1
+       10  0.0054 libpthread-2.12.1.so
+        8  0.0043 libgdk-x11-2.0.so.0.2200.0
+        5  0.0027 compiz
+        4  0.0022 libxcb.so.1.1.0
+        3  0.0016 mawk
+        3  0.0016 nvidia_drv.so
+        2  0.0011 libpam.so.0.82.2
+        2  0.0011 libgio-2.0.so.0.2600.1
+        1 5.4e-04 grep
+        1 5.4e-04 libncurses.so.5.7
+        1 5.4e-04 libanimation.so
+        1 5.4e-04 libscaleaddon.so
+        1 5.4e-04 libORBit-2.so.0.1.0
+        1 5.4e-04 libdbus-glib-1.so.2.1.0
+        1 5.4e-04 libgthread-2.0.so.0.2600.1
+        1 5.4e-04 libnm-glib.so.2.4.1
+        1 5.4e-04 libstartup-notification-1.so.0.0.0
+        1 5.4e-04 libnvidia-glcore.so.260.19.06
+        1 5.4e-04 irqbalance
+        1 5.4e-04 sshd
+ 
+Tue Sep 20 19:24:57 CDT 2011
+CPU: Intel Atom, speed 1795.72 MHz (estimated)
+Counted BR_INST_RETIRED events (number of branch instructions retired) with a unit mask of 0x00 (any Retired branch instructions) count 10000
+BR_INST_RETIRE...|
+  samples|      %|
+------------------
+   706277 98.1040 seti_boinc
+     5451  0.7572 libc-2.12.1.so
+     3902  0.5420 oprofiled
+     1100  0.1528 bash
+      757  0.1051 libcairo.so.2.11000.0
+      452  0.0628 ld-2.12.1.so
+      421  0.0585 libdbus-1.so.3.5.2
+      355  0.0493 dbus-daemon
+      324  0.0450 libglib-2.0.so.0.2600.1
+      246  0.0342 libgobject-2.0.so.0.2600.1
+      177  0.0246 libpthread-2.12.1.so
+       64  0.0089 ophelp
+       56  0.0078 Xorg
+	BR_INST_RETIRE...|
+	  samples|      %|
+	------------------
+	       55 98.2143 Xorg
+	        1  1.7857 [vdso] (tgid:1265 range:0x78d000-0x78e000)
+       53  0.0074 libdbus-glib-1.so.2.1.0
+       53  0.0074 libgdu.so.0.0.0
+       48  0.0067 libgconf-2.so.4.1.5
+       41  0.0057 libORBit-2.so.0.1.0
+       17  0.0024 nvidia_drv.so
+       14  0.0019 libX11.so.6.3.0
+       12  0.0017 grep
+       10  0.0014 libgdk-x11-2.0.so.0.2200.0
+        9  0.0013 libpam.so.0.82.2
+        8  0.0011 libgthread-2.0.so.0.2600.1
+        7 9.7e-04 libxcb.so.1.1.0
+        6 8.3e-04 dash
+        6 8.3e-04 libudev.so.0.9.1
+        5 6.9e-04 libgtk-x11-2.0.so.0.2200.0
+        5 6.9e-04 libpangoft2-1.0.so.0.2800.2
+        4 5.6e-04 sudo
+        4 5.6e-04 libgio-2.0.so.0.2600.1
+        4 5.6e-04 libpango-1.0.so.0.2800.2
+        3 4.2e-04 no-vmlinux
+        3 4.2e-04 mawk
+        3 4.2e-04 libgconfbackend-xml.so
+        3 4.2e-04 libnvidia-glcore.so.260.19.06
+        2 2.8e-04 libatasmart.so.4.0.3
+        2 2.8e-04 libm-2.12.1.so
+        2 2.8e-04 compiz
+        2 2.8e-04 nm-applet
+        2 2.8e-04 libnm-util.so.1.6.0
+        2 2.8e-04 udisks-daemon
+        2 2.8e-04 rsyslogd
+        1 1.4e-04 ls
+        1 1.4e-04 libnss_compat-2.12.1.so
+        1 1.4e-04 libnss_files-2.12.1.so
+        1 1.4e-04 librt-2.12.1.so
+        1 1.4e-04 tr
+        1 1.4e-04 libscale.so
+        1 1.4e-04 gvfs-gdu-volume-monitor
+        1 1.4e-04 libpangocairo-1.0.so.0.2800.2
+        1 1.4e-04 libusbmuxd.so.1.0.4
+        1 1.4e-04 libxklavier.so.16.0.0
+        1 1.4e-04 NetworkManager
+        1 1.4e-04 irqbalance
+        1 1.4e-04 sshd
+ 
+Tue Sep 20 19:27:00 CDT 2011
+CPU: Intel Atom, speed 1795.72 MHz (estimated)
+Counted BR_MISS_PRED_RETIRED events (number of mispredicted branches retired (precise)) with a unit mask of 0x00 (No unit mask) count 10000
+BR_MISS_PRED_R...|
+  samples|      %|
+------------------
+    14453 97.8869 seti_boinc
+       88  0.5960 bash
+       85  0.5757 libc-2.12.1.so
+       32  0.2167 ld-2.12.1.so
+       25  0.1693 libcairo.so.2.11000.0
+       15  0.1016 libdbus-1.so.3.5.2
+       13  0.0880 dbus-daemon
+	BR_MISS_PRED_R...|
+	  samples|      %|
+	------------------
+	       12 92.3077 dbus-daemon
+	        1  7.6923 [vdso] (tgid:821 range:0x259000-0x25a000)
+       12  0.0813 libpthread-2.12.1.so
+        9  0.0610 libglib-2.0.so.0.2600.1
+        9  0.0610 libgobject-2.0.so.0.2600.1
+        4  0.0271 Xorg
+        4  0.0271 libgdk-x11-2.0.so.0.2200.0
+        3  0.0203 mawk
+        2  0.0135 ophelp
+        2  0.0135 libX11.so.6.3.0
+        1  0.0068 dash
+        1  0.0068 libgcc_s.so.1
+        1  0.0068 libnss_files-2.12.1.so
+        1  0.0068 gtk-window-decorator
+	BR_MISS_PRED_R...|
+	  samples|      %|
+	------------------
+	        1 100.000 [vdso] (tgid:1621 range:0x387000-0x388000)
+        1  0.0068 sudo
+        1  0.0068 libdecoration.so
+        1  0.0068 libdbus-glib-1.so.2.1.0
+        1  0.0068 libgnome-desktop-2.so.17.1.4
+        1  0.0068 libxcb.so.1.1.0
+ }}}
