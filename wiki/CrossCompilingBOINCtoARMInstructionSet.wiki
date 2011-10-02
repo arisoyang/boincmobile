@@ -14,12 +14,16 @@ Before we can successfully cross compile BOINC for the ARM instruction set we fi
 
 
 First login to scratchbox:
-{{{$ /scratchbox/login   }}}
+{{{
+$ /scratchbox/login
+}}}
 
 === Installing BOINC dependencies automatically ===
 
 
-{{{> fakeroot apt-get install curl zlib autoconf m4 openssl libcurl4-openssl-dev libfftw3-dev}}}
+{{{
+> fakeroot apt-get install curl zlib autoconf m4 openssl libcurl4-openssl-dev libfftw3-dev
+}}}
 
 
 === Installing BOINC dependencies manually ===
@@ -78,10 +82,12 @@ Now check out the BOINC source code from the SVN repository
 
 Now lets build BOINC
 
-{{{> cd boinc}}}
-{{{> fakeroot ./_autosetup}}}
-{{{> fakeroot ./configure --disable-server  --host=i386 --target=armel CXXFLAGS="-O2 -mtune=cortex-a8 -mfpu=neon" CFLAGS="-O2 -mtune=cortex-a8 -mfpu=neon"}}}
-{{{> fakeroot make}}}
+{{{
+> cd boinc
+> fakeroot ./_autosetup
+> fakeroot ./configure --disable-server  --host=i386 --target=armel CXXFLAGS="-O2 -mtune=cortex-a8 -mfpu=neon" CFLAGS="-O2 -mtune=cortex-a8 -mfpu=neon"
+> fakeroot make
+}}}
 
 Depending on the details of your build environment you might have noticed a few configuration and compilation errors.
 
@@ -91,12 +97,16 @@ To see a list of the know cross compilation issues and annoyances click here: ht
 
 === getting the seti at home source code ===
 
-{{{ svn checkout https://setisvn.ssl.berkeley.edu/svn/seti_boinc }}}
+{{{ 
+svn checkout https://setisvn.ssl.berkeley.edu/svn/seti_boinc 
+}}}
 
 Now lets build SETI for the ARM instruction set
 
 
-{{{> cd seti_boinc }}}
-{{{> fakeroot ./_autosetup }}}
-{{{> fakeroot ./configure --host=i386 --target=armel --disable-server CXXFLAGS="-O2 -mtune=cortex-a8 -mfpu=neon" CFLAGS="-O2 -mtune=cortex-a8 -mfpu=neon" }}}
-{{{> make }}}
+{{{
+> cd seti_boinc 
+> fakeroot ./_autosetup 
+> fakeroot ./configure --host=i386 --target=armel --disable-server CXXFLAGS="-O2 -mtune=cortex-a8 -mfpu=neon" CFLAGS="-O2 -mtune=cortex-a8 -mfpu=neon"
+> make 
+}}}
