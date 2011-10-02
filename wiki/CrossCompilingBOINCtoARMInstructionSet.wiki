@@ -78,7 +78,9 @@ http://www.zlib.net/
 
 
 Now check out the BOINC source code from the SVN repository
-||{{{> svn co http://boinc.berkeley.edu/svn/trunk/boinc   }}}||
+{{{
+> svn co http://boinc.berkeley.edu/svn/trunk/boinc   
+}}}
 
 Now lets build BOINC
 
