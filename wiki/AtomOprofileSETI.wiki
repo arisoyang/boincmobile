@@ -1,0 +1,84 @@
+#summary profiling data and script for SETI on Atom.
+
+= Profiling SETI on Atom =
+
+Add your content here.
+
+
+==Atom Oprofile SETI script =
+{{{
+#!/bin/bash
+SleepSeconds=292 
+# atom processor 
+
+./seti_boinc --standalone &
+
+sudo rm -r /var/lib/oprofile/
+sudo rm -r /root/.oprofile/daemonrc
+sudo opcontrol --init
+sudo opcontrol --no-vmlinux
+sudo opcontrol --reset
+sudo opcontrol --event=CPU_CLK_UNHALTED:200000:0x0:0:1 --event=INST_RETIRED:200000:0x1:0:1
+sudo opcontrol --start
+sudo opcontrol --status
+echo "profiling for $SleepSeconds seconds"
+sleep $SleepSeconds
+sudo opcontrol --dump
+date >> Atom.txt
+sudo opreport >> Atom.txt
+echo " " >> Atom.txt
+sudo opreport -l /home/jeff/stuff/seti_boinc/client/seti_boinc >> Atom.txt
+sudo opcontrol --shutdown
+
+sudo rm -r /var/lib/oprofile/
+sudo rm -r /root/.oprofile/daemonrc
+sudo opcontrol --init
+sudo opcontrol --no-vmlinux
+sudo opcontrol --reset
+sudo opcontrol --event=LLC_MISSES:200000:0x41:0:1 --event=LLC_REFS:200000:0x4f:0:1
+sudo opcontrol --start
+sudo opcontrol --status
+echo "profiling for $SleepSeconds seconds"
+sleep $SleepSeconds
+sudo opcontrol --dump
+date >> Atom.txt
+sudo opreport >> Atom.txt
+echo " " >> Atom.txt
+sudo opreport -l /home/jeff/stuff/seti_boinc/client/seti_boinc >> Atom.txt
+sudo opcontrol --shutdown
+
+# 1)DTLB - any miss 2) 
+sudo rm -r /var/lib/oprofile/
+sudo rm -r /root/.oprofile/daemonrc
+sudo opcontrol --init
+sudo opcontrol --no-vmlinux
+sudo opcontrol --reset
+sudo opcontrol --event=DATA_TLB_MISSES:200000:0x7:0:1 --event=ITLB:200000:0x02:0:1 
+sudo opcontrol --start
+sudo opcontrol --status
+echo "profiling for $SleepSeconds seconds"
+sleep $SleepSeconds
+sudo opcontrol --dump
+date >> Atom.txt
+sudo opreport >> Atom.txt
+echo " " >> Atom.txt
+sudo opreport -l /home/jeff/stuff/seti_boinc/client/seti_boinc >> Atom.txt
+sudo opcontrol --shutdown
+
+sudo rm -r /var/lib/oprofile/
+sudo rm -r /root/.oprofile/daemonrc
+sudo opcontrol --init
+sudo opcontrol --no-vmlinux
+sudo opcontrol --reset
+sudo opcontrol --event=BR_INST_RETIRED:200000:0x0:0:1 --event=BR_MISS_PRED_RETIRED:200000:0x0:0:1
+sudo opcontrol --start
+sudo opcontrol --status
+echo "profiling for $SleepSeconds seconds"
+sleep $SleepSeconds
+sudo opcontrol --dump
+date >> Atom.txt
+sudo opreport >> Atom.txt
+echo " " >> Atom.txt
+sudo opreport -l /home/jeff/stuff/seti_boinc/client/seti_boinc >> Atom.txt
+sudo opcontrol --shutdown
+}}}
