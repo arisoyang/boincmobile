@@ -2,13 +2,702 @@
 
 =SETI on Cortex-A8=
 {{{
-rer
+#!/bin/bash
+# iMX53 - ARM Cortex A8 Oprofile Script
+SleepSeconds=180 #on real run
+./seti_boinc --standalone &
+sudo rm -r /var/lib/oprofile
+sudo rm -r /root/.oprofile/daemonrc
+
+# Running next event
+sudo opcontrol --init
+sudo opcontrol --vmlinux=/home/lucid/vmlinux-2.6.38-00462-gc38d9c7-dirty
+sudo opcontrol --reset
+sudo opcontrol --event=CPU_CYCLES:200000:0x0:0:1 --event=INSTR_EXECUTED:200000:0x0:0:1 --event=L2_ACCESS:200000:0x0:0:1 --event=L2_CACH_MISS:200000:0x0:0:1
+sudo opcontrol --start
+sudo opcontrol --status
+sleep $SleepSeconds
+sudo opcontrol --dump
+date >> mx53_Oprofile.txt
+sudo opreport >> mx53_Oprofile.txt
+echo " " >> mx53_Oprofile.txt
+sudo opreport -l /home/lucid/Documents/seti_boinc/client/seti_boinc >> mx53_Oprofile.txt
+sudo opcontrol --shutdown
+echo " " >> mx53_Oprofile.txt
+echo " " >> mx53_Oprofile.txt
+
+# Running next event
+sudo opcontrol --init
+sudo opcontrol --vmlinux=/home/lucid/vmlinux-2.6.38-00462-gc38d9c7-dirty
+sudo opcontrol --reset
+sudo opcontrol --event=PC_BRANCH_MIS_PRED:200000:0x0:0:1 --event=PC_BRANCH_MIS_USED:200000:0x0:0:1 --event=PC_IMM_BRANCH:200000:0x0:0:1 --event=PC_BRANCH_EXECUTED:200000:0x0:0:1
+sudo opcontrol --start
+sudo opcontrol --status
+sleep $SleepSeconds
+sudo opcontrol --dump
+date >> mx53_Oprofile.txt
+sudo opreport >> mx53_Oprofile.txt
+echo " " >> mx53_Oprofile.txt
+sudo opreport -l /home/lucid/Documents/seti_boinc/client/seti_boinc >> mx53_Oprofile.txt
+sudo opcontrol --shutdown
+echo " " >> mx53_Oprofile.txt
+echo " " >> mx53_Oprofile.txt
+
+# Running next event
+sudo opcontrol --init
+sudo opcontrol --vmlinux=/home/lucid/vmlinux-2.6.38-00462-gc38d9c7-dirty
+sudo opcontrol --reset
+sudo opcontrol --event=ITLB_MISS:200000:0x0:0:1 --event=DTLB_REFILL:200000:0x0:0:1 --event=CYCLES_INST_STALL:200000:0x0:0:1 --event=CYCLES_NEON_DATA_STALL:200000:0x0:0:1
+sudo opcontrol --start
+sudo opcontrol --status
+sleep $SleepSeconds
+sudo opcontrol --dump
+date >> mx53_Oprofile.txt
+sudo opreport >> mx53_Oprofile.txt
+echo " " >> mx53_Oprofile.txt
+sudo opreport -l /home/lucid/Documents/seti_boinc/client/seti_boinc >> mx53_Oprofile.txt
+sudo opcontrol --shutdown
+echo " " >> mx53_Oprofile.txt
+echo " " >> mx53_Oprofile.txt
 }}}
 
-==oprofile script==
+==oprofile script - 180s==
 {{{
-
-erer
+Tue Oct  4 02:43:57 CST 2011
+CPU: ARM Cortex-A8, speed 1e+06 MHz (estimated)
+Counted CPU_CYCLES events (Number of CPU cycles) with a unit mask of 0x00 (No unit mask) count 200000
+Counted INSTR_EXECUTED events (All executed instructions) with a unit mask of 0x00 (No unit mask) count 200000
+Counted L2_ACCESS events (Any access to L2 cache) with a unit mask of 0x00 (No unit mask) count 200000
+Counted L2_CACH_MISS events (Any cacheable miss in L2 cache) with a unit mask of 0x00 (No unit mask) count 200000
+CPU_CYCLES:200000|INSTR_EXECUTED...| L2_ACCESS:200000|L2_CACH_MISS:2...|
+  samples|      %|  samples|      %|  samples|      %|  samples|      %|
+------------------------------------------------------------------------
+   855518 99.4112    204338 98.7546      8632 99.5962       116 92.8000 seti_boinc
+	CPU_CYCLES:200000|INSTR_EXECUTED...| L2_ACCESS:200000|L2_CACH_MISS:2...|
+	  samples|      %|  samples|      %|  samples|      %|  samples|      %|
+	------------------------------------------------------------------------
+	   855317 99.9765    204183 99.9241      8629 99.9652       113 97.4138 seti_boinc
+	      201  0.0235       155  0.0759         3  0.0348         3  2.5862 [vectors] (tgid:12078 range:0xffff0000-0xffff1000)
+     1794  0.2085      1227  0.5930         9  0.1038         3  2.4000 oprofiled
+	CPU_CYCLES:200000|INSTR_EXECUTED...| L2_ACCESS:200000|L2_CACH_MISS:2...|
+	  samples|      %|  samples|      %|  samples|      %|  samples|      %|
+	------------------------------------------------------------------------
+	     1793 99.9443      1226 99.9185         9 100.000         3 100.000 oprofiled
+	        1  0.0557         1  0.0815         0       0         0       0 [vectors] (tgid:12707 range:0xffff0000-0xffff1000)
+     1730  0.2010       971  0.4693         6  0.0692         3  2.4000 libc-2.11.1.so
+      845  0.0982       184  0.0889        11  0.1269         3  2.4000 ld-2.11.1.so
+      198  0.0230        60  0.0290         2  0.0231         0       0 dash
+	CPU_CYCLES:200000|INSTR_EXECUTED...| L2_ACCESS:200000|L2_CACH_MISS:2...|
+	  samples|      %|  samples|      %|  samples|      %|  samples|      %|
+	------------------------------------------------------------------------
+	      194 97.9798        59 98.3333         2 100.000         0       0 dash
+	        4  2.0202         1  1.6667         0       0         0       0 [vectors] (tgid:12866 range:0xffff0000-0xffff1000)
+      124  0.0144        18  0.0087         2  0.0231         0       0 gawk
+       95  0.0110        51  0.0246         1  0.0115         0       0 libavahi-common.so.3.5.1
+       67  0.0078        14  0.0068         2  0.0231         0       0 libavahi-core.so.6.0.1
+       66  0.0077         3  0.0014         0       0         0       0 libapt-pkg-libc6.10-6.so.4.8.0
+       57  0.0066        35  0.0169         0       0         0       0 ophelp
+       10  0.0012         4  0.0019         0       0         0       0 avahi-daemon
+	CPU_CYCLES:200000|INSTR_EXECUTED...| L2_ACCESS:200000|L2_CACH_MISS:2...|
+	  samples|      %|  samples|      %|  samples|      %|  samples|      %|
+	------------------------------------------------------------------------
+	       10 100.000         4 100.000         0       0         0       0 [vectors] (tgid:3312 range:0xffff0000-0xffff1000)
+       10  0.0012         0       0         0       0         0       0 ntpd
+        9  0.0010         0       0         0       0         0       0 libpthread-2.11.1.so
+        8 9.3e-04         2 9.7e-04         0       0         0       0 grep
+        5 5.8e-04         1 4.8e-04         0       0         0       0 libm-2.11.1.so
+        5 5.8e-04         0       0         0       0         0       0 libpopt.so.0.0.0
+        4 4.6e-04         0       0         0       0         0       0 bash
+        4 4.6e-04         1 4.8e-04         0       0         0       0 apt-get
+	CPU_CYCLES:200000|INSTR_EXECUTED...| L2_ACCESS:200000|L2_CACH_MISS:2...|
+	  samples|      %|  samples|      %|  samples|      %|  samples|      %|
+	------------------------------------------------------------------------
+	        2 50.0000         0       0         0       0         0       0 apt-get
+	        2 50.0000         1 100.000         0       0         0       0 [vectors] (tgid:11952 range:0xffff0000-0xffff1000)
+        4 4.6e-04         0       0         0       0         0       0 sudo
+        4 4.6e-04         0       0         0       0         0       0 rsyslogd
+        3 3.5e-04         0       0         0       0         0       0 ls
+        3 3.5e-04         1 4.8e-04         0       0         0       0 libcrypto.so.0.9.8
+        3 3.5e-04         0       0         0       0         0       0 libgcc_s.so.1
+        3 3.5e-04         1 4.8e-04         0       0         0       0 libpam.so.0.82.2
+        3 3.5e-04         1 4.8e-04         0       0         0       0 LC_CTYPE
+        2 2.3e-04         0       0         0       0         0       0 seq
+        2 2.3e-04         0       0         0       0         0       0 gconv-modules.cache
+        1 1.2e-04         0       0         1  0.0115         0       0 cat
+        1 1.2e-04         0       0         0       0         0       0 ld.so.cache
+        1 1.2e-04         0       0         0       0         0       0 libdl-2.11.1.so
+        1 1.2e-04         1 4.8e-04         0       0         0       0 libnss_compat-2.11.1.so
+        1 1.2e-04         0       0         0       0         0       0 libselinux.so.1
+        1 1.2e-04         0       0         0       0         0       0 pam_limits.so
+        1 1.2e-04         0       0         0       0         0       0 tr
+        1 1.2e-04         0       0         0       0         0       0 ftp
+        1 1.2e-04         1 4.8e-04         0       0         0       0 imklog.so
+        0       0         0       0         1  0.0115         0       0 librt-2.11.1.so
+        0       0         1 4.8e-04         0       0         0       0 libstdc++.so.6.0.13
+ 
+CPU: ARM Cortex-A8, speed 1e+06 MHz (estimated)
+Counted CPU_CYCLES events (Number of CPU cycles) with a unit mask of 0x00 (No unit mask) count 200000
+Counted INSTR_EXECUTED events (All executed instructions) with a unit mask of 0x00 (No unit mask) count 200000
+Counted L2_ACCESS events (Any access to L2 cache) with a unit mask of 0x00 (No unit mask) count 200000
+Counted L2_CACH_MISS events (Any cacheable miss in L2 cache) with a unit mask of 0x00 (No unit mask) count 200000
+samples  %        samples  %        samples  %        samples  %        image name               symbol name
+317032   37.0573  74761    36.5869  3455     40.0255  8         6.8966  seti_boinc               top_sum2(float**, PoTPlan*)
+180654   21.1163  42192    20.6481  1912     22.1501  3         2.5862  seti_boinc               top_sum3(float**, PoTPlan*)
+162413   18.9842  35900    17.5689  1478     17.1223  2         1.7241  seti_boinc               top_sum4(float**, PoTPlan*)
+139173   16.2677  30676    15.0124  1231     14.2609  1         0.8621  seti_boinc               top_sum5(float**, PoTPlan*)
+5692      0.6653  7450      3.6459  27        0.3128  2         1.7241  seti_boinc               strchr
+4829      0.5645  1050      0.5139  63        0.7298  0              0  seti_boinc               sw_sum2_t31(float**, PoTPlan*)
+4230      0.4944  889       0.4351  14        0.1622  0              0  seti_boinc               __ieee754_log
+3264      0.3815  433       0.2119  26        0.3012  10        8.6207  seti_boinc               n1_64
+2982      0.3486  826       0.4042  46        0.5329  0              0  seti_boinc               find_pulse(float const*, int, float, int, int)
+2943      0.3440  409       0.2002  23        0.2665  0              0  seti_boinc               t1_32
+2870      0.3355  2568      1.2567  24        0.2780  0              0  seti_boinc               Laligned
+2740      0.3203  1141      0.5584  84        0.9731  2         1.7241  seti_boinc               t_funct(int, int, int)
+1949      0.2278  292       0.1429  11        0.1274  0              0  seti_boinc               v_BaseLineSmooth(float (*) [2], int, int, int)
+1666      0.1947  249       0.1219  6         0.0695  1         0.8621  seti_boinc               t1_16
+1661      0.1942  307       0.1502  8         0.0927  0              0  seti_boinc               n1_32
+1384      0.1618  254       0.1243  5         0.0579  0              0  seti_boinc               __ieee754_pow
+1290      0.1508  193       0.0945  9         0.1043  0              0  seti_boinc               q1_8
+1043      0.1219  118       0.0577  2         0.0232  0              0  seti_boinc               lcgf(double, double)
+1009      0.1179  126       0.0617  7         0.0811  0              0  seti_boinc               __exp1
+975       0.1140  135       0.0661  13        0.1506  1         0.8621  seti_boinc               t1_8
+935       0.1093  127       0.0622  4         0.0463  2         1.7241  seti_boinc               q1_4
+932       0.1089  102       0.0499  4         0.0463  1         0.8621  seti_boinc               t1_4
+900       0.1052  130       0.0636  11        0.1274  4         3.4483  seti_boinc               v_GetPowerSpectrum(float (*) [2], float*, int)
+853       0.0997  154       0.0754  8         0.0927  0              0  seti_boinc               n1_8
+838       0.0980  236       0.1155  13        0.1506  1         0.8621  seti_boinc               FindSpikes(float*, int, int, SETI_WU_INFO&)
+700       0.0818  43        0.0210  3         0.0348  2         1.7241  seti_boinc               GetFixedPoT(float*, int, int, float*, int, int)
+683       0.0798  130       0.0636  6         0.0695  0              0  seti_boinc               ReportPulseEvent(float, float, float, int, int, float, float, float*, int, int)
+667       0.0780  40        0.0196  2         0.0232  0              0  seti_boinc               analyze_pot(float*, int, ChirpFftPair_t&)
+631       0.0738  138       0.0675  6         0.0695  0              0  seti_boinc               time_to_ra_dec(double, double*, double*)
+470       0.0549  32        0.0157  6         0.0695  8         6.8966  seti_boinc               memcpy
+466       0.0545  239       0.1170  5         0.0579  0              0  seti_boinc               _int_malloc
+453       0.0530  133       0.0651  3         0.0348  1         0.8621  seti_boinc               GenChirpFftPairs(ChirpFftPair_t**, double*)
+451       0.0527  439       0.2148  2         0.0232  0              0  seti_boinc               __divsi3
+399       0.0466  154       0.0754  10        0.1158  3         2.5862  seti_boinc               malloc
+336       0.0393  90        0.0440  2         0.0232  0              0  seti_boinc               logl
+286       0.0334  53        0.0259  16        0.1854  11        9.4828  seti_boinc               analysis_config::analysis_config()
+270       0.0316  53        0.0259  1         0.0116  0              0  seti_boinc               SpikeProgressUnits(int)
+263       0.0307  209       0.1023  1         0.0116  0              0  seti_boinc               _int_free
+263       0.0307  24        0.0117  2         0.0232  0              0  seti_boinc               calc_detection_freq(double, double, double)
+257       0.0300  149       0.0729  0              0  0              0  seti_boinc               free
+252       0.0295  75        0.0367  0              0  0              0  seti_boinc               find_triplets(float const*, int, float, int, int)
+242       0.0283  37        0.0181  0              0  0              0  seti_boinc               seti_analyze(ANALYSIS_STATE&)
+201       0.0235  155       0.0759  3         0.0348  3         2.5862  [vectors] (tgid:12078 range:0xffff0000-0xffff1000) [vectors] (tgid:12078 range:0xffff0000-0xffff1000)
+166       0.0194  53        0.0259  11        0.1274  11        9.4828  seti_boinc               memset
+155       0.0181  58        0.0284  6         0.0695  4         3.4483  seti_boinc               workunit_grp::workunit_grp()
+153       0.0179  32        0.0157  0              0  0              0  seti_boinc               malloc_consolidate
+147       0.0172  39        0.0191  2         0.0232  0              0  seti_boinc               cnvt_bin_hz(int, int)
+137       0.0160  26        0.0127  10        0.1158  4         3.4483  seti_boinc               splitter_config::splitter_config()
+136       0.0159  137       0.0670  1         0.0116  0              0  seti_boinc               fftwf_md5putc
+136       0.0159  57        0.0279  1         0.0116  0              0  seti_boinc               powl
+117       0.0137  60        0.0294  2         0.0232  4         3.4483  seti_boinc               operator new(unsigned int)
+115       0.0134  18        0.0088  0              0  0              0  seti_boinc               fraction_done(double, double)
+114       0.0133  22        0.0108  7         0.0811  6         5.1724  seti_boinc               tape::tape()
+113       0.0132  70        0.0343  4         0.0463  3         2.5862  seti_boinc               bits_to_floats(unsigned char*, float (*) [2], int)
+103       0.0120  14        0.0069  0              0  0              0  seti_boinc               __ieee754_log10
+93        0.0109  55        0.0269  1         0.0116  0              0  seti_boinc               search0
+89        0.0104  13        0.0064  0              0  0              0  seti_boinc               GetPulsePoTLen(long, int*, int*)
+87        0.0102  14        0.0069  5         0.0579  2         1.7241  seti_boinc               recorder_config::recorder_config()
+86        0.0101  20        0.0098  0              0  0              0  seti_boinc               fftwf_execute_dft
+83        0.0097  72        0.0352  0              0  0              0  seti_boinc               __udivsi3
+81        0.0095  18        0.0088  1         0.0116  0              0  seti_boinc               log10l
+78        0.0091  17        0.0083  0              0  0              0  seti_boinc               isnanl
+77        0.0090  30        0.0147  2         0.0232  7         6.0345  seti_boinc               data_description_t::data_description_t()
+76        0.0089  17        0.0083  0              0  0              0  seti_boinc               __aeabi_d2ulz
+70        0.0082  39        0.0191  3         0.0348  1         0.8621  seti_boinc               spike::spike()
+63        0.0074  2        9.8e-04  4         0.0463  0              0  seti_boinc               boinc_fraction_done
+61        0.0071  27        0.0132  0              0  0              0  seti_boinc               receiver_config::receiver_config()
+55        0.0064  9         0.0044  0              0  0              0  seti_boinc               cexp_generic
+53        0.0062  11        0.0054  0              0  0              0  seti_boinc               std::_Rb_tree<long long, std::pair<long long const, ChirpFftPair_t>, std::_Select1st<std::pair<long long const, ChirpFftPair_t> >, std::less<long long>, std::allocator<std::pair<long long const, ChirpFftPair_t> > >::_M_erase(std::_Rb_tree_node<std::pair<long long const, ChirpFftPair_t> >*)
+53        0.0062  19        0.0093  0              0  0              0  seti_boinc               std::_Rb_tree_insert_and_rebalance(bool, std::_Rb_tree_node_base*, std::_Rb_tree_node_base*, std::_Rb_tree_node_base&)
+52        0.0061  17        0.0083  0              0  0              0  seti_boinc               operator delete(void*)
+52        0.0061  3         0.0015  0              0  1         0.8621  seti_boinc               std::_Rb_tree_increment(std::_Rb_tree_node_base const*)
+49        0.0057  8         0.0039  0              0  0              0  seti_boinc               GetProgressUnitSize(int, int)
+47        0.0055  38        0.0186  0              0  0              0  seti_boinc               SPIKE_INFO::~SPIKE_INFO()
+47        0.0055  29        0.0142  1         0.0116  0              0  seti_boinc               T.9826
+47        0.0055  20        0.0098  1         0.0116  0              0  seti_boinc               workunit_header::workunit_header()
+45        0.0053  10        0.0049  3         0.0348  0              0  seti_boinc               result::result()
+41        0.0048  11        0.0054  2         0.0232  3         2.5862  seti_boinc               subband_description_t::subband_description_t()
+39        0.0046  4         0.0020  0              0  0              0  seti_boinc               invert_lcgf(float, float, float)
+39        0.0046  5         0.0024  4         0.0463  1         0.8621  seti_boinc               pulse::pulse()
+27        0.0032  3         0.0015  1         0.0116  0              0  seti_boinc               ComputePoTInfo(int, int)
+25        0.0029  1        4.9e-04  0              0  0              0  seti_boinc               PULSE_INFO::PULSE_INFO()
+24        0.0028  8         0.0039  0              0  0              0  seti_boinc               fftwf_ct_applicable
+23        0.0027  14        0.0069  0              0  0              0  seti_boinc               cexpl_sqrtn_table
+21        0.0025  5         0.0024  0              0  0              0  seti_boinc               __fixdfdi
+20        0.0023  16        0.0078  1         0.0116  0              0  seti_boinc               SPIKE_INFO::SPIKE_INFO()
+19        0.0022  8         0.0039  0              0  0              0  seti_boinc               floor
+19        0.0022  23        0.0113  0              0  0              0  seti_boinc               mkplan
+18        0.0021  10        0.0049  0              0  0              0  seti_boinc               PULSE_INFO::~PULSE_INFO()
+18        0.0021  9         0.0044  0              0  0              0  seti_boinc               std::_Rb_tree<long long, std::pair<long long const, ChirpFftPair_t>, std::_Select1st<std::pair<long long const, ChirpFftPair_t> >, std::less<long long>, std::allocator<std::pair<long long const, ChirpFftPair_t> > >::_M_insert_unique_(std::_Rb_tree_const_iterator<std::pair<long long const, ChirpFftPair_t> >, std::pair<long long const, ChirpFftPair_t> const&)
+17        0.0020  2        9.8e-04  0              0  0              0  seti_boinc               __aeabi_read_tp
+17        0.0020  14        0.0069  0              0  0              0  seti_boinc               fftwf_md5putb
+17        0.0020  4         0.0020  0              0  0              0  seti_boinc               std::vector<unsigned char, std::allocator<unsigned char> >::_M_fill_insert(__gnu_cxx::__normal_iterator<unsigned char*, std::vector<unsigned char, std::allocator<unsigned char> > >, unsigned int, unsigned char const&)
+17        0.0020  1        4.9e-04  0              0  0              0  seti_boinc               timer_handler()
+16        0.0019  13        0.0064  1         0.0116  0              0  seti_boinc               std::vector<unsigned char, std::allocator<unsigned char> > x_setiathome_decode<unsigned char>(char const*, unsigned int)
+15        0.0018  6         0.0029  0              0  0              0  seti_boinc               T.9827
+15        0.0018  5         0.0024  1         0.0116  0              0  seti_boinc               mkplan
+14        0.0016  11        0.0054  0              0  0              0  seti_boinc               fftwf_md5end
+14        0.0016  4         0.0020  0              0  0              0  seti_boinc               htab_lookup
+14        0.0016  9         0.0044  0              0  0              0  seti_boinc               std::_Rb_tree_decrement(std::_Rb_tree_node_base const*)
+13        0.0015  5         0.0024  0              0  1         0.8621  seti_boinc               T.9822
+13        0.0015  2        9.8e-04  0              0  0              0  seti_boinc               apply
+13        0.0015  3         0.0015  0              0  0              0  seti_boinc               hgrow
+13        0.0015  14        0.0069  0              0  0              0  seti_boinc               std::_Rb_tree<long long, std::pair<long long const, ChirpFftPair_t>, std::_Select1st<std::pair<long long const, ChirpFftPair_t> >, std::less<long long>, std::allocator<std::pair<long long const, ChirpFftPair_t> > >::_M_insert_(std::_Rb_tree_node_base const*, std::_Rb_tree_node_base const*, std::pair<long long const, ChirpFftPair_t> const&)
+12        0.0014  2        9.8e-04  0              0  0              0  seti_boinc               finite
+12        0.0014  0              0  1         0.0116  0              0  seti_boinc               nanosleep
+9         0.0011  1        4.9e-04  0              0  0              0  seti_boinc               boinc_sleep(double)
+9         0.0011  6         0.0029  0              0  0              0  seti_boinc               hinsert0
+9         0.0011  0              0  0              0  0              0  seti_boinc               worker_signal_handler(int)
+8        9.4e-04  3         0.0015  0              0  0              0  seti_boinc               fftwf_mktensor
+8        9.4e-04  1        4.9e-04  0              0  0              0  seti_boinc               mkplan
+7        8.2e-04  0              0  0              0  0              0  seti_boinc               apply
+7        8.2e-04  1        4.9e-04  0              0  0              0  seti_boinc               cosl
+7        8.2e-04  6         0.0029  0              0  0              0  seti_boinc               fftwf_choose_radix
+7        8.2e-04  1        4.9e-04  0              0  0              0  seti_boinc               fftwf_kernel_free
+7        8.2e-04  2        9.8e-04  0              0  0              0  seti_boinc               fftwf_malloc
+7        8.2e-04  2        9.8e-04  2         0.0232  0              0  seti_boinc               mkplan
+6        7.0e-04  1        4.9e-04  0              0  0              0  seti_boinc               __aeabi_uidivmod
+6        7.0e-04  0              0  0              0  0              0  seti_boinc               __ieee754_fmod
+6        7.0e-04  0              0  0              0  0              0  seti_boinc               __libc_disable_asynccancel
+6        7.0e-04  1        4.9e-04  0              0  0              0  seti_boinc               fftwf_ifree
+6        7.0e-04  6         0.0029  0              0  0              0  seti_boinc               fftwf_malloc_plain
+6        7.0e-04  0              0  0              0  0              0  seti_boinc               fftwf_plan_destroy_internal
+6        7.0e-04  6         0.0029  0              0  0              0  seti_boinc               fftwf_tensor_compress
+6        7.0e-04  0              0  0              0  0              0  seti_boinc               fftwf_tensor_sz
+6        7.0e-04  5         0.0024  0              0  0              0  seti_boinc               htab_insert
+6        7.0e-04  8         0.0039  0              0  0              0  seti_boinc               mkplan
+6        7.0e-04  8         0.0039  0              0  0              0  seti_boinc               msort_with_tmp
+6        7.0e-04  1        4.9e-04  0              0  0              0  seti_boinc               sinl
+5        5.8e-04  8         0.0039  0              0  0              0  seti_boinc               __aeabi_idivmod
+5        5.8e-04  0              0  0              0  0              0  seti_boinc               apply
+5        5.8e-04  0              0  0              0  0              0  seti_boinc               dtime()
+5        5.8e-04  0              0  0              0  0              0  seti_boinc               fftwf_tensor_copy
+4        4.7e-04  0              0  0              0  0              0  seti_boinc               PulseProgressUnits(double, int)
+4        4.7e-04  2        9.8e-04  0              0  0              0  seti_boinc               ___printf_fp
+4        4.7e-04  1        4.9e-04  0              0  0              0  seti_boinc               __libc_enable_asynccancel
+4        4.7e-04  1        4.9e-04  1         0.0116  1         0.8621  seti_boinc               calloc_a(unsigned int, unsigned int, unsigned int)
+4        4.7e-04  0              0  0              0  0              0  seti_boinc               evaluate_plan
+4        4.7e-04  2        9.8e-04  0              0  0              0  seti_boinc               fftwf_kernel_malloc
+4        4.7e-04  1        4.9e-04  0              0  0              0  seti_boinc               fftwf_md5INT
+4        4.7e-04  1        4.9e-04  0              0  0              0  seti_boinc               fftwf_md5int
+4        4.7e-04  2        9.8e-04  0              0  0              0  seti_boinc               fftwf_twiddle_awake
+4        4.7e-04  3         0.0015  0              0  0              0  seti_boinc               fill_slot
+4        4.7e-04  0              0  0              0  0              0  seti_boinc               mkcldw
+4        4.7e-04  0              0  0              0  0              0  seti_boinc               real_cexp
+3        3.5e-04  0              0  0              0  0              0  seti_boinc               ____libc_disable_asynccancel_veneer
+3        3.5e-04  0              0  0              0  0              0  seti_boinc               __default_sa_restorer_v2
+3        3.5e-04  6         0.0029  0              0  0              0  seti_boinc               fftwf_hc2hc_applicable
+3        3.5e-04  2        9.8e-04  0              0  0              0  seti_boinc               fftwf_isqrt
+3        3.5e-04  1        4.9e-04  0              0  0              0  seti_boinc               fftwf_mkplan
+3        3.5e-04  1        4.9e-04  0              0  0              0  seti_boinc               fftwf_tensor_compress_contiguous
+3        3.5e-04  1        4.9e-04  0              0  0              0  seti_boinc               floorf
+3        3.5e-04  0              0  0              0  0              0  seti_boinc               fmodl
+3        3.5e-04  1        4.9e-04  0              0  0              0  seti_boinc               getrusage
+3        3.5e-04  2        9.8e-04  0              0  0              0  seti_boinc               hash
+3        3.5e-04  0              0  0              0  0              0  seti_boinc               hlookup
+3        3.5e-04  0              0  0              0  0              0  seti_boinc               isinfl
+3        3.5e-04  1        4.9e-04  0              0  0              0  seti_boinc               mkplan
+3        3.5e-04  2        9.8e-04  0              0  0              0  seti_boinc               mkplan
+3        3.5e-04  0              0  0              0  0              0  seti_boinc               mkplan
+3        3.5e-04  0              0  1         0.0116  0              0  seti_boinc               mkplan
+3        3.5e-04  1        4.9e-04  0              0  0              0  seti_boinc               qsort_r
+3        3.5e-04  1        4.9e-04  0              0  0              0  seti_boinc               sincos
+3        3.5e-04  0              0  0              0  0              0  seti_boinc               timer_thread(void*)
+2        2.3e-04  0              0  0              0  0              0  seti_boinc               GaussFit(float*, int, int)
+2        2.3e-04  0              0  0              0  0              0  seti_boinc               T.9831
+2        2.3e-04  3         0.0015  0              0  0              0  seti_boinc               TripletProgressUnits()
+2        2.3e-04  1        4.9e-04  0              0  0              0  seti_boinc               applicable
+2        2.3e-04  0              0  0              0  0              0  seti_boinc               fftwf_ct_uglyp
+2        2.3e-04  1        4.9e-04  0              0  0              0  seti_boinc               fftwf_dimcmp
+2        2.3e-04  1        4.9e-04  0              0  0              0  seti_boinc               fftwf_free
+2        2.3e-04  0              0  0              0  0              0  seti_boinc               fftwf_md5puts
+2        2.3e-04  0              0  0              0  0              0  seti_boinc               fftwf_mkproblem_dft
+2        2.3e-04  0              0  0              0  0              0  seti_boinc               fftwf_mkproblem_dft_d
+2        2.3e-04  1        4.9e-04  0              0  0              0  seti_boinc               fftwf_ops_zero
+2        2.3e-04  2        9.8e-04  0              0  0              0  seti_boinc               fftwf_tensor_destroy2
+2        2.3e-04  0              0  0              0  0              0  seti_boinc               gettimeofday
+2        2.3e-04  1        4.9e-04  0              0  0              0  seti_boinc               mkplan
+2        2.3e-04  2        9.8e-04  0              0  0              0  seti_boinc               mkplan
+2        2.3e-04  0              0  0              0  0              0  seti_boinc               mkplan
+2        2.3e-04  1        4.9e-04  0              0  0              0  seti_boinc               mkplan
+2        2.3e-04  0              0  0              0  0              0  seti_boinc               qsort
+2        2.3e-04  0              0  0              0  0              0  seti_boinc               really_pickdim
+1        1.2e-04  1        4.9e-04  0              0  0              0  seti_boinc               GaussianProgressUnits()
+1        1.2e-04  0              0  0              0  0              0  seti_boinc               ____libc_enable_asynccancel_veneer
+1        1.2e-04  0              0  0              0  0              0  seti_boinc               __dubsin
+1        1.2e-04  1        4.9e-04  0              0  0              0  seti_boinc               __mpn_divrem
+1        1.2e-04  0              0  0              0  0              0  seti_boinc               applicable_ip_sq_tiled
+1        1.2e-04  0              0  0              0  0              0  seti_boinc               applicable_memcpy
+1        1.2e-04  0              0  0              0  0              0  seti_boinc               apply
+1        1.2e-04  0              0  0              0  1         0.8621  seti_boinc               apply_dit
+1        1.2e-04  0              0  0              0  0              0  seti_boinc               boinc_worker_thread_cpu_time
+1        1.2e-04  0              0  0              0  0              0  seti_boinc               buffered_vfprintf
+1        1.2e-04  0              0  0              0  0              0  seti_boinc               destroy
+1        1.2e-04  0              0  0              0  0              0  seti_boinc               destroy
+1        1.2e-04  0              0  0              0  0              0  seti_boinc               fclose
+1        1.2e-04  0              0  0              0  0              0  seti_boinc               fftwf_alignment_of
+1        1.2e-04  0              0  0              0  0              0  seti_boinc               fftwf_first_divisor
+1        1.2e-04  1        4.9e-04  0              0  0              0  seti_boinc               fftwf_iabs
+1        1.2e-04  0              0  0              0  0              0  seti_boinc               fftwf_imin
+1        1.2e-04  0              0  0              0  0              0  seti_boinc               fftwf_mapflags
+1        1.2e-04  0              0  0              0  0              0  seti_boinc               fftwf_md5unsigned
+1        1.2e-04  0              0  0              0  0              0  seti_boinc               fftwf_mkapiplan
+1        1.2e-04  0              0  0              0  0              0  seti_boinc               fftwf_mkplan_d
+1        1.2e-04  1        4.9e-04  0              0  0              0  seti_boinc               fftwf_mkplan_dft
+1        1.2e-04  0              0  0              0  0              0  seti_boinc               fftwf_mktensor_2d
+1        1.2e-04  0              0  0              0  0              0  seti_boinc               fftwf_nbuf
+1        1.2e-04  2        9.8e-04  0              0  0              0  seti_boinc               fftwf_ops_madd
+1        1.2e-04  0              0  0              0  0              0  seti_boinc               fftwf_ops_madd2
+1        1.2e-04  2        9.8e-04  0              0  0              0  seti_boinc               fftwf_pickdim
+1        1.2e-04  0              0  0              0  0              0  seti_boinc               fftwf_solvtab_exec
+1        1.2e-04  1        4.9e-04  0              0  0              0  seti_boinc               fftwf_tensor_destroy4
+1        1.2e-04  0              0  0              0  0              0  seti_boinc               fftwf_tensor_equal
+1        1.2e-04  0              0  0              0  0              0  seti_boinc               free_a(void*)
+1        1.2e-04  0              0  0              0  0              0  seti_boinc               getchr_str
+1        1.2e-04  0              0  0              0  0              0  seti_boinc               getlong
+1        1.2e-04  0              0  0              0  0              0  seti_boinc               hack_digit.11765
+1        1.2e-04  0              0  0              0  0              0  seti_boinc               malloc_a(unsigned int, unsigned int)
+1        1.2e-04  2        9.8e-04  0              0  0              0  seti_boinc               memmove
+1        1.2e-04  0              0  0              0  0              0  seti_boinc               mkcldw
+1        1.2e-04  0              0  0              0  0              0  seti_boinc               mkplan
+1        1.2e-04  0              0  0              0  0              0  seti_boinc               pthread_once
+1        1.2e-04  0              0  0              0  0              0  seti_boinc               putchr_cnt
+1        1.2e-04  0              0  0              0  0              0  seti_boinc               recorder_config::print_xml(int, int, int, char const*) const
+1        1.2e-04  0              0  0              0  0              0  seti_boinc               register_solver
+1        1.2e-04  0              0  0              0  0              0  seti_boinc               regone
+1        1.2e-04  0              0  0              0  0              0  seti_boinc               result::operator=(result const&)
+1        1.2e-04  0              0  0              0  0              0  seti_boinc               std::num_put<char, std::ostreambuf_iterator<char, std::char_traits<char> > >::do_put(std::ostreambuf_iterator<char, std::char_traits<char> >, std::ios_base&, char, long long) const
+1        1.2e-04  0              0  0              0  0              0  seti_boinc               std::ostreambuf_iterator<char, std::char_traits<char> > std::num_put<char, std::ostreambuf_iterator<char, std::char_traits<char> > >::_M_insert_float<double>(std::ostreambuf_iterator<char, std::char_traits<char> >, std::ios_base&, char, char, double) const
+1        1.2e-04  0              0  0              0  0              0  seti_boinc               std::string::assign(std::string const&)
+1        1.2e-04  0              0  0              0  0              0  seti_boinc               strchrnul
+1        1.2e-04  0              0  0              0  0              0  seti_boinc               usleep
+1        1.2e-04  0              0  0              0  0              0  seti_boinc               vprint
+0              0  1        4.9e-04  0              0  0              0  seti_boinc               Llastword
+0              0  1        4.9e-04  0              0  0              0  seti_boinc               bool std::has_facet<std::num_get<char, std::istreambuf_iterator<char, std::char_traits<char> > > >(std::locale const&)
+0              0  1        4.9e-04  0              0  0              0  seti_boinc               destroy
+0              0  1        4.9e-04  0              0  0              0  seti_boinc               fftwf_mkproblem_rdft
+0              0  2        9.8e-04  0              0  0              0  seti_boinc               fftwf_tensor_append
+0              0  3         0.0015  0              0  0              0  seti_boinc               fftwf_tensor_destroy
+0              0  1        4.9e-04  0              0  0              0  seti_boinc               fftwf_tensor_md5
+0              0  1        4.9e-04  0              0  0              0  seti_boinc               fftwf_tensor_tornk1
+0              0  1        4.9e-04  0              0  0              0  seti_boinc               mkcldw
+0              0  1        4.9e-04  0              0  0              0  seti_boinc               mygetc
+0              0  3         0.0015  0              0  0              0  seti_boinc               okp
+0              0  1        4.9e-04  0              0  0              0  seti_boinc               putulong
+0              0  1        4.9e-04  0              0  0              0  seti_boinc               std::string::_Rep::_S_create(unsigned int, unsigned int, std::allocator<char> const&)
+ 
+ 
+Tue Oct  4 02:47:20 CST 2011
+CPU: ARM Cortex-A8, speed 1e+06 MHz (estimated)
+Counted PC_BRANCH_EXECUTED events (Any taken branch that is executed) with a unit mask of 0x00 (No unit mask) count 200000
+Counted PC_BRANCH_MIS_PRED events (Branch mispredicted or not predicted. Counts pipeline flushes because of misprediction) with a unit mask of 0x00 (No unit mask) count 200000
+Counted PC_BRANCH_MIS_USED events (Branch or change in program flow that could have been predicted) with a unit mask of 0x00 (No unit mask) count 200000
+Counted PC_IMM_BRANCH events (Immediate branch instruction executed (taken or not)) with a unit mask of 0x00 (No unit mask) count 200000
+PC_BRANCH_EXEC...|PC_BRANCH_MIS_...|PC_BRANCH_MIS_...|PC_IMM_BRANCH:...|
+  samples|      %|  samples|      %|  samples|      %|  samples|      %|
+------------------------------------------------------------------------
+     1683 90.1929       120 80.0000      2129 84.5177      1984 85.0772 seti_boinc
+	PC_BRANCH_EXEC...|PC_BRANCH_MIS_...|PC_BRANCH_MIS_...|PC_IMM_BRANCH:...|
+	  samples|      %|  samples|      %|  samples|      %|  samples|      %|
+	------------------------------------------------------------------------
+	     1674 99.4652       119 99.1667      2112 99.2015      1965 99.0423 seti_boinc
+	        9  0.5348         1  0.8333        17  0.7985        19  0.9577 [vectors] (tgid:12078 range:0xffff0000-0xffff1000)
+      128  6.8596        15 10.0000       236  9.3688       221  9.4768 libc-2.11.1.so
+       19  1.0182         2  1.3333        51  2.0246        45  1.9297 libavahi-common.so.3.5.1
+       15  0.8039         5  3.3333        53  2.1040        44  1.8868 ld-2.11.1.so
+        8  0.4287         5  3.3333        15  0.5955        13  0.5575 dash
+	PC_BRANCH_EXEC...|PC_BRANCH_MIS_...|PC_BRANCH_MIS_...|PC_IMM_BRANCH:...|
+	  samples|      %|  samples|      %|  samples|      %|  samples|      %|
+	------------------------------------------------------------------------
+	        8 100.000         5 100.000        14 93.3333        13 100.000 dash
+	        0       0         0       0         1  6.6667         0       0 [vectors] (tgid:14338 range:0xffff0000-0xffff1000)
+        4  0.2144         1  0.6667         9  0.3573         3  0.1286 gawk
+        3  0.1608         1  0.6667         7  0.2779         8  0.3431 ophelp
+        2  0.1072         1  0.6667         5  0.1985         2  0.0858 libavahi-core.so.6.0.1
+        2  0.1072         0       0         0       0         1  0.0429 ntpd
+        1  0.0536         0       0         0       0         1  0.0429 libpthread-2.11.1.so
+        1  0.0536         0       0         0       0         0       0 LC_CTYPE
+        0       0         0       0         1  0.0397         0       0 ls
+        0       0         0       0         1  0.0397         0       0 libm-2.11.1.so
+        0       0         0       0         0       0         1  0.0429 libpam.so.0.82.2
+        0       0         0       0         0       0         1  0.0429 apt-get
+	PC_BRANCH_EXEC...|PC_BRANCH_MIS_...|PC_BRANCH_MIS_...|PC_IMM_BRANCH:...|
+	  samples|      %|  samples|      %|  samples|      %|  samples|      %|
+	------------------------------------------------------------------------
+	        0       0         0       0         0       0         1 100.000 [vectors] (tgid:11952 range:0xffff0000-0xffff1000)
+        0       0         0       0         1  0.0397         0       0 sudo
+        0       0         0       0         3  0.1191         3  0.1286 libapt-pkg-libc6.10-6.so.4.8.0
+        0       0         0       0         7  0.2779         5  0.2144 avahi-daemon
+	PC_BRANCH_EXEC...|PC_BRANCH_MIS_...|PC_BRANCH_MIS_...|PC_IMM_BRANCH:...|
+	  samples|      %|  samples|      %|  samples|      %|  samples|      %|
+	------------------------------------------------------------------------
+	        0       0         0       0         1 14.2857         0       0 avahi-daemon
+	        0       0         0       0         6 85.7143         5 100.000 [vectors] (tgid:3312 range:0xffff0000-0xffff1000)
+        0       0         0       0         1  0.0397         0       0 sshd
+ 
+CPU: ARM Cortex-A8, speed 1e+06 MHz (estimated)
+Counted PC_BRANCH_EXECUTED events (Any taken branch that is executed) with a unit mask of 0x00 (No unit mask) count 200000
+Counted PC_BRANCH_MIS_PRED events (Branch mispredicted or not predicted. Counts pipeline flushes because of misprediction) with a unit mask of 0x00 (No unit mask) count 200000
+Counted PC_BRANCH_MIS_USED events (Branch or change in program flow that could have been predicted) with a unit mask of 0x00 (No unit mask) count 200000
+Counted PC_IMM_BRANCH events (Immediate branch instruction executed (taken or not)) with a unit mask of 0x00 (No unit mask) count 200000
+samples  %        samples  %        samples  %        samples  %        image name               symbol name
+587      34.8782  43       35.8333  660      31.0005  631      31.8044  seti_boinc               top_sum2(float**, PoTPlan*)
+213      12.6560  4         3.3333  198       9.3001  182       9.1734  seti_boinc               top_sum3(float**, PoTPlan*)
+171      10.1604  3         2.5000  197       9.2532  181       9.1230  seti_boinc               top_sum4(float**, PoTPlan*)
+144       8.5561  1         0.8333  160       7.5153  152       7.6613  seti_boinc               top_sum5(float**, PoTPlan*)
+117       6.9519  12       10.0000  207       9.7229  153       7.7117  seti_boinc               find_pulse(float const*, int, float, int, int)
+71        4.2187  18       15.0000  100       4.6970  86        4.3347  seti_boinc               sw_sum2_t31(float**, PoTPlan*)
+69        4.0998  5         4.1667  125       5.8713  145       7.3085  seti_boinc               __divsi3
+64        3.8027  1         0.8333  111       5.2137  119       5.9980  seti_boinc               t_funct(int, int, int)
+30        1.7825  1         0.8333  26        1.2212  24        1.2097  seti_boinc               ReportPulseEvent(float, float, float, int, int, float, float, float*, int, int)
+22        1.3072  3         2.5000  27        1.2682  28        1.4113  seti_boinc               __ieee754_log
+21        1.2478  3         2.5000  31        1.4561  15        0.7560  seti_boinc               FindSpikes(float*, int, int, SETI_WU_INFO&)
+17        1.0101  4         3.3333  35        1.6440  33        1.6633  seti_boinc               _int_malloc
+16        0.9507  3         2.5000  31        1.4561  25        1.2601  seti_boinc               _int_free
+10        0.5942  0              0  13        0.6106  12        0.6048  seti_boinc               find_triplets(float const*, int, float, int, int)
+9         0.5348  1         0.8333  17        0.7985  19        0.9577  [vectors] (tgid:12078 range:0xffff0000-0xffff1000) [vectors] (tgid:12078 range:0xffff0000-0xffff1000)
+9         0.5348  1         0.8333  22        1.0333  14        0.7056  seti_boinc               malloc
+8         0.4753  0              0  24        1.1273  16        0.8065  seti_boinc               free
+8         0.4753  2         1.6667  13        0.6106  18        0.9073  seti_boinc               time_to_ra_dec(double, double*, double*)
+6         0.3565  0              0  3         0.1409  3         0.1512  seti_boinc               analyze_pot(float*, int, ChirpFftPair_t&)
+6         0.3565  1         0.8333  7         0.3288  5         0.2520  seti_boinc               logl
+6         0.3565  0              0  7         0.3288  11        0.5544  seti_boinc               memset
+5         0.2971  0              0  5         0.2349  5         0.2520  seti_boinc               GetFixedPoT(float*, int, int, float*, int, int)
+5         0.2971  0              0  3         0.1409  2         0.1008  seti_boinc               analysis_config::analysis_config()
+5         0.2971  0              0  7         0.3288  1         0.0504  seti_boinc               lcgf(double, double)
+5         0.2971  0              0  11        0.5167  8         0.4032  seti_boinc               powl
+4         0.2377  0              0  4         0.1879  0              0  seti_boinc               SpikeProgressUnits(int)
+4         0.2377  0              0  2         0.0939  0              0  seti_boinc               subband_description_t::subband_description_t()
+4         0.2377  1         0.8333  3         0.1409  5         0.2520  seti_boinc               v_GetPowerSpectrum(float (*) [2], float*, int)
+4         0.2377  2         1.6667  5         0.2349  1         0.0504  seti_boinc               workunit_grp::workunit_grp()
+3         0.1783  0              0  0              0  6         0.3024  seti_boinc               T.9827
+3         0.1783  0              0  5         0.2349  4         0.2016  seti_boinc               __exp1
+3         0.1783  1         0.8333  3         0.1409  9         0.4536  seti_boinc               malloc_consolidate
+3         0.1783  3         2.5000  4         0.1879  7         0.3528  seti_boinc               operator delete(void*)
+3         0.1783  1         0.8333  6         0.2818  7         0.3528  seti_boinc               receiver_config::receiver_config()
+2         0.1188  0              0  4         0.1879  2         0.1008  seti_boinc               PULSE_INFO::~PULSE_INFO()
+2         0.1188  0              0  5         0.2349  2         0.1008  seti_boinc               SPIKE_INFO::~SPIKE_INFO()
+2         0.1188  0              0  3         0.1409  5         0.2520  seti_boinc               T.9826
+2         0.1188  0              0  0              0  1         0.0504  seti_boinc               __ieee754_log10
+2         0.1188  0              0  8         0.3758  8         0.4032  seti_boinc               __ieee754_pow
+2         0.1188  0              0  1         0.0470  0              0  seti_boinc               invert_lcgf(float, float, float)
+2         0.1188  0              0  0              0  0              0  seti_boinc               log10l
+2         0.1188  0              0  3         0.1409  6         0.3024  seti_boinc               operator new(unsigned int)
+2         0.1188  0              0  2         0.0939  0              0  seti_boinc               result::result()
+2         0.1188  1         0.8333  1         0.0470  1         0.0504  seti_boinc               workunit_header::workunit_header()
+1         0.0594  0              0  2         0.0939  2         0.1008  seti_boinc               T.9822
+1         0.0594  0              0  0              0  0              0  seti_boinc               __mpn_extract_double
+1         0.0594  3         2.5000  1         0.0470  7         0.3528  seti_boinc               cnvt_bin_hz(int, int)
+1         0.0594  0              0  4         0.1879  1         0.0504  seti_boinc               isnanl
+1         0.0594  0              0  1         0.0470  1         0.0504  seti_boinc               n1_16
+1         0.0594  0              0  3         0.1409  1         0.0504  seti_boinc               recorder_config::recorder_config()
+1         0.0594  0              0  4         0.1879  1         0.0504  seti_boinc               seti_analyze(ANALYSIS_STATE&)
+1         0.0594  1         0.8333  0              0  1         0.0504  seti_boinc               splitter_config::splitter_config()
+0              0  0              0  0              0  1         0.0504  seti_boinc               __aeabi_read_tp
+0              0  0              0  0              0  1         0.0504  seti_boinc               __mpn_divrem
+0              0  0              0  1         0.0470  0              0  seti_boinc               apply
+0              0  0              0  2         0.0939  0              0  seti_boinc               boinc_fraction_done
+0              0  0              0  1         0.0470  3         0.1512  seti_boinc               calc_detection_freq(double, double, double)
+0              0  0              0  1         0.0470  2         0.1008  seti_boinc               data_description_t::data_description_t()
+0              0  0              0  3         0.1409  1         0.0504  seti_boinc               fftwf_execute_dft
+0              0  0              0  1         0.0470  1         0.0504  seti_boinc               fftwf_free
+0              0  1         0.8333  0              0  1         0.0504  seti_boinc               fftwf_kernel_malloc
+0              0  0              0  1         0.0470  1         0.0504  seti_boinc               fraction_done(double, double)
+0              0  0              0  1         0.0470  0              0  seti_boinc               free_a(void*)
+0              0  0              0  1         0.0470  0              0  seti_boinc               isinfl
+0              0  0              0  0              0  1         0.0504  seti_boinc               malloc_a(unsigned int, unsigned int)
+0              0  0              0  1         0.0470  0              0  seti_boinc               pulse::pulse()
+0              0  0              0  0              0  1         0.0504  seti_boinc               spike::spike()
+0              0  0              0  2         0.0939  2         0.1008  seti_boinc               std::vector<unsigned char, std::allocator<unsigned char> >::_M_fill_insert(__gnu_cxx::__normal_iterator<unsigned char*, std::vector<unsigned char, std::allocator<unsigned char> > >, unsigned int, unsigned char const&)
+0              0  0              0  0              0  3         0.1512  seti_boinc               tape::tape()
+ 
+ 
+Tue Oct  4 02:50:43 CST 2011
+CPU: ARM Cortex-A8, speed 1e+06 MHz (estimated)
+Counted CYCLES_INST_STALL events (Cycles where no instruction available) with a unit mask of 0x00 (No unit mask) count 200000
+Counted CYCLES_NEON_DATA_STALL events (Number of cycles the processor waits on MRC data from NEON) with a unit mask of 0x00 (No unit mask) count 200000
+Counted DTLB_REFILL events (Data R/W that causes a TLB refill) with a unit mask of 0x00 (No unit mask) count 200000
+Counted ITLB_MISS events (Instruction fetch misses from TLB) with a unit mask of 0x00 (No unit mask) count 200000
+CYCLES_INST_ST...|CYCLES_NEON_DA...|DTLB_REFILL:20...| ITLB_MISS:200000|
+  samples|      %|  samples|      %|  samples|      %|  samples|      %|
+------------------------------------------------------------------------
+     4126 66.7422    514388 100.000        98 77.7778         3 100.000 seti_boinc
+	CYCLES_INST_ST...|CYCLES_NEON_DA...|DTLB_REFILL:20...| ITLB_MISS:200000|
+	  samples|      %|  samples|      %|  samples|      %|  samples|      %|
+	------------------------------------------------------------------------
+	     4103 99.4426    514388 100.000        97 98.9796         3 100.000 seti_boinc
+	       23  0.5574         0       0         1  1.0204         0       0 [vectors] (tgid:12078 range:0xffff0000-0xffff1000)
+      974 15.7554         0       0         6  4.7619         0       0 libc-2.11.1.so
+      315  5.0954         0       0         1  0.7937         0       0 ld-2.11.1.so
+      246  3.9793         0       0         2  1.5873         0       0 updatedb.mlocate
+	CYCLES_INST_ST...|CYCLES_NEON_DA...|DTLB_REFILL:20...| ITLB_MISS:200000|
+	  samples|      %|  samples|      %|  samples|      %|  samples|      %|
+	------------------------------------------------------------------------
+	      229 93.0894         0       0         2 100.000         0       0 updatedb.mlocate
+	       17  6.9106         0       0         0       0         0       0 [vectors] (tgid:15924 range:0xffff0000-0xffff1000)
+       82  1.3264         0       0         0       0         0       0 dash
+       80  1.2941         0       0        15 11.9048         0       0 gzip
+       70  1.1323         0       0         1  0.7937         0       0 dpkg-query
+       49  0.7926         0       0         0       0         0       0 gawk
+       28  0.4529         0       0         0       0         0       0 oprofiled
+	CYCLES_INST_ST...|CYCLES_NEON_DA...|DTLB_REFILL:20...| ITLB_MISS:200000|
+	  samples|      %|  samples|      %|  samples|      %|  samples|      %|
+	------------------------------------------------------------------------
+	       27 96.4286         0       0         0       0         0       0 oprofiled
+	        1  3.5714         0       0         0       0         0       0 [vectors] (tgid:15651 range:0xffff0000-0xffff1000)
+       24  0.3882         0       0         1  0.7937         0       0 libavahi-core.so.6.0.1
+       18  0.2912         0       0         0       0         0       0 libapt-pkg-libc6.10-6.so.4.8.0
+       18  0.2912         0       0         0       0         0       0 libgdbm.so.3.0.0
+       17  0.2750         0       0         0       0         0       0 libavahi-common.so.3.5.1
+       14  0.2265         0       0         1  0.7937         0       0 mandb
+	CYCLES_INST_ST...|CYCLES_NEON_DA...|DTLB_REFILL:20...| ITLB_MISS:200000|
+	  samples|      %|  samples|      %|  samples|      %|  samples|      %|
+	------------------------------------------------------------------------
+	       12 85.7143         0       0         1 100.000         0       0 mandb
+	        2 14.2857         0       0         0       0         0       0 [vectors] (tgid:15901 range:0xffff0000-0xffff1000)
+       12  0.1941         0       0         0       0         0       0 libstdc++.so.6.0.13
+       11  0.1779         0       0         0       0         0       0 ophelp
+        9  0.1456         0       0         0       0         0       0 bash
+        6  0.0971         0       0         0       0         0       0 grep
+        6  0.0971         0       0         0       0         0       0 libdbus-1.so.3.4.0
+        6  0.0971         0       0         0       0         0       0 logrotate
+        5  0.0809         0       0         0       0         0       0 find
+        5  0.0809         0       0         0       0         0       0 ntpd
+        5  0.0809         0       0         0       0         0       0 rsyslogd
+        4  0.0647         0       0         0       0         0       0 libgcc_s.so.1
+        4  0.0647         0       0         0       0         0       0 cupsd
+        3  0.0485         0       0         0       0         0       0 chown
+        3  0.0485         0       0         0       0         0       0 date
+        3  0.0485         0       0         0       0         0       0 libnih.so.1.0.0
+        3  0.0485         0       0         0       0         0       0 libpopt.so.0.0.0
+        3  0.0485         0       0         0       0         0       0 libpthread-2.11.1.so
+        3  0.0485         0       0         0       0         0       0 sudo
+        3  0.0485         0       0         0       0         0       0 avahi-daemon
+        2  0.0324         0       0         0       0         0       0 ls
+        2  0.0324         0       0         0       0         0       0 libdl-2.11.1.so
+        2  0.0324         0       0         0       0         0       0 libm-2.11.1.so
+        2  0.0324         0       0         0       0         0       0 libselinux.so.1
+        2  0.0324         0       0         0       0         0       0 init
+	CYCLES_INST_ST...|CYCLES_NEON_DA...|DTLB_REFILL:20...| ITLB_MISS:200000|
+	  samples|      %|  samples|      %|  samples|      %|  samples|      %|
+	------------------------------------------------------------------------
+	        1 50.0000         0       0         0       0         0       0 init
+	        1 50.0000         0       0         0       0         0       0 [vectors] (tgid:1 range:0xffff0000-0xffff1000)
+        2  0.0324         0       0         0       0         0       0 libcups.so.2
+        2  0.0324         0       0         0       0         0       0 LC_CTYPE
+        1  0.0162         0       0         0       0         0       0 cat
+        1  0.0162         0       0         0       0         0       0 mv
+        1  0.0162         0       0         0       0         0       0 ld.so.cache
+        1  0.0162         0       0         0       0         0       0 libcrypto.so.0.9.8
+        1  0.0162         0       0         0       0         0       0 pam_limits.so
+        1  0.0162         0       0         0       0         0       0 pam_unix.so
+        1  0.0162         0       0         0       0         0       0 basename
+        1  0.0162         0       0         0       0         0       0 dirname
+        1  0.0162         0       0         0       0         0       0 dpkg
+        1  0.0162         0       0         1  0.7937         0       0 seq
+        1  0.0162         0       0         0       0         0       0 gconv-modules.cache
+        1  0.0162         0       0         0       0         0       0 libcupsmime.so.1
+        1  0.0162         0       0         0       0         0       0 LC_COLLATE
+ 
+CPU: ARM Cortex-A8, speed 1e+06 MHz (estimated)
+Counted CYCLES_INST_STALL events (Cycles where no instruction available) with a unit mask of 0x00 (No unit mask) count 200000
+Counted CYCLES_NEON_DATA_STALL events (Number of cycles the processor waits on MRC data from NEON) with a unit mask of 0x00 (No unit mask) count 200000
+Counted DTLB_REFILL events (Data R/W that causes a TLB refill) with a unit mask of 0x00 (No unit mask) count 200000
+Counted ITLB_MISS events (Instruction fetch misses from TLB) with a unit mask of 0x00 (No unit mask) count 200000
+samples  %        samples  %        samples  %        samples  %        image name               symbol name
+1219     29.5444  249945   48.5908  18       18.3673  0              0  seti_boinc               top_sum2(float**, PoTPlan*)
+473      11.4639  106684   20.7400  16       16.3265  0              0  seti_boinc               top_sum3(float**, PoTPlan*)
+339       8.2162  9030      1.7555  1         1.0204  0              0  seti_boinc               sw_sum2_t31(float**, PoTPlan*)
+333       8.0708  81698    15.8826  21       21.4286  0              0  seti_boinc               top_sum4(float**, PoTPlan*)
+315       7.6345  1983      0.3855  2         2.0408  1        33.3333  seti_boinc               find_pulse(float const*, int, float, int, int)
+257       6.2288  60231    11.7093  9         9.1837  0              0  seti_boinc               top_sum5(float**, PoTPlan*)
+182       4.4111  0              0  0              0  0              0  seti_boinc               __divsi3
+111       2.6903  143       0.0278  14       14.2857  0              0  seti_boinc               t_funct(int, int, int)
+110       2.6660  0              0  1         1.0204  0              0  seti_boinc               _int_malloc
+78        1.8905  1187      0.2308  1         1.0204  1        33.3333  seti_boinc               ReportPulseEvent(float, float, float, int, int, float, float, float*, int, int)
+66        1.5996  0              0  0              0  0              0  seti_boinc               _int_free
+35        0.8483  0              0  0              0  0              0  seti_boinc               free
+34        0.8240  0              0  3         3.0612  0              0  seti_boinc               malloc
+31        0.7513  176       0.0342  0              0  0              0  seti_boinc               time_to_ra_dec(double, double*, double*)
+27        0.6544  310       0.0603  0              0  0              0  seti_boinc               find_triplets(float const*, int, float, int, int)
+24        0.5817  0              0  2         2.0408  0              0  seti_boinc               malloc_consolidate
+23        0.5574  0              0  1         1.0204  0              0  [vectors] (tgid:12078 range:0xffff0000-0xffff1000) [vectors] (tgid:12078 range:0xffff0000-0xffff1000)
+22        0.5332  620       0.1205  2         2.0408  0              0  seti_boinc               __ieee754_log
+21        0.5090  0              0  0              0  0              0  seti_boinc               memset
+21        0.5090  0              0  1         1.0204  0              0  seti_boinc               workunit_grp::workunit_grp()
+20        0.4847  1        1.9e-04  0              0  0              0  seti_boinc               PULSE_INFO::PULSE_INFO()
+19        0.4605  204       0.0397  1         1.0204  0              0  seti_boinc               FindSpikes(float*, int, int, SETI_WU_INFO&)
+17        0.4120  580       0.1128  0              0  0              0  seti_boinc               analyze_pot(float*, int, ChirpFftPair_t&)
+16        0.3878  0              0  0              0  0              0  seti_boinc               PULSE_INFO::~PULSE_INFO()
+16        0.3878  0              0  0              0  0              0  seti_boinc               memcpy
+15        0.3635  6         0.0012  1         1.0204  0              0  seti_boinc               floorf
+15        0.3635  0              0  1         1.0204  0              0  seti_boinc               std::vector<unsigned char, std::allocator<unsigned char> >::_M_fill_insert(__gnu_cxx::__normal_iterator<unsigned char*, std::vector<unsigned char, std::allocator<unsigned char> > >, unsigned int, unsigned char const&)
+14        0.3393  215       0.0418  0              0  0              0  seti_boinc               n1_32
+14        0.3393  4        7.8e-04  0              0  0              0  seti_boinc               operator delete(void*)
+14        0.3393  0              0  0              0  0              0  seti_boinc               pulse::pulse()
+13        0.3151  27        0.0052  0              0  0              0  seti_boinc               cnvt_bin_hz(int, int)
+12        0.2908  0              0  0              0  0              0  seti_boinc               receiver_config::receiver_config()
+12        0.2908  0              0  1         1.0204  0              0  seti_boinc               splitter_config::splitter_config()
+11        0.2666  0              0  0              0  0              0  seti_boinc               operator new(unsigned int)
+9         0.2181  0              0  0              0  0              0  seti_boinc               __libc_disable_asynccancel
+9         0.2181  50        0.0097  1         1.0204  0              0  seti_boinc               calc_detection_freq(double, double, double)
+9         0.2181  0              0  0              0  0              0  seti_boinc               result::result()
+8         0.1939  36        0.0070  0              0  0              0  seti_boinc               SpikeProgressUnits(int)
+8         0.1939  0              0  0              0  0              0  seti_boinc               T.9826
+8         0.1939  0              0  0              0  0              0  seti_boinc               subband_description_t::subband_description_t()
+7         0.1697  138       0.0268  0              0  0              0  seti_boinc               __ieee754_pow
+7         0.1697  0              0  0              0  1        33.3333  seti_boinc               fftwf_kernel_malloc
+7         0.1697  0              0  0              0  0              0  seti_boinc               recorder_config::recorder_config()
+7         0.1697  0              0  0              0  0              0  seti_boinc               workunit_header::workunit_header()
+6         0.1454  0              0  0              0  0              0  seti_boinc               T.9822
+6         0.1454  0              0  0              0  0              0  seti_boinc               __aeabi_read_tp
+6         0.1454  0              0  0              0  0              0  seti_boinc               data_description_t::data_description_t()
+5         0.1212  0              0  0              0  0              0  seti_boinc               analysis_config::analysis_config()
+5         0.1212  0              0  0              0  0              0  seti_boinc               calloc_a(unsigned int, unsigned int, unsigned int)
+5         0.1212  0              0  0              0  0              0  seti_boinc               getrusage
+5         0.1212  0              0  0              0  0              0  seti_boinc               nanosleep
+5         0.1212  0              0  0              0  0              0  seti_boinc               timer_handler()
+5         0.1212  306       0.0595  0              0  0              0  seti_boinc               v_GetPowerSpectrum(float (*) [2], float*, int)
+4         0.0969  254       0.0494  0              0  0              0  seti_boinc               GetFixedPoT(float*, int, int, float*, int, int)
+4         0.0969  0              0  0              0  0              0  seti_boinc               __ieee754_fmod
+4         0.0969  0              0  0              0  0              0  seti_boinc               fftwf_malloc
+4         0.0969  0              0  0              0  0              0  seti_boinc               fmodl
+4         0.0969  0              0  0              0  0              0  seti_boinc               tape::tape()
+3         0.0727  0              0  0              0  0              0  seti_boinc               T.9827
+3         0.0727  169       0.0329  0              0  0              0  seti_boinc               __exp1
+3         0.0727  0              0  0              0  0              0  seti_boinc               boinc_sleep(double)
+3         0.0727  0              0  0              0  0              0  seti_boinc               gettimeofday
+3         0.0727  0              0  0              0  0              0  seti_boinc               isnanl
+3         0.0727  37        0.0072  0              0  0              0  seti_boinc               logl
+3         0.0727  39        0.0076  0              0  0              0  seti_boinc               seti_analyze(ANALYSIS_STATE&)
+3         0.0727  0              0  0              0  0              0  seti_boinc               worker_signal_handler(int)
+2         0.0485  0              0  0              0  0              0  seti_boinc               __default_sa_restorer_v2
+2         0.0485  0              0  0              0  0              0  seti_boinc               __libc_enable_asynccancel
+2         0.0485  2        3.9e-04  0              0  0              0  seti_boinc               apply
+2         0.0485  0              0  0              0  0              0  seti_boinc               boinc_fraction_done
+2         0.0485  0              0  0              0  0              0  seti_boinc               fftwf_kernel_free
+2         0.0485  17        0.0033  0              0  0              0  seti_boinc               fraction_done(double, double)
+2         0.0485  0              0  0              0  0              0  seti_boinc               free_a(void*)
+2         0.0485  0              0  0              0  0              0  seti_boinc               malloc_a(unsigned int, unsigned int)
+2         0.0485  0              0  0              0  0              0  seti_boinc               memmove
+2         0.0485  0              0  0              0  0              0  seti_boinc               usleep
+1         0.0242  0              0  0              0  0              0  seti_boinc               SPIKE_INFO::SPIKE_INFO()
+1         0.0242  0              0  0              0  0              0  seti_boinc               T.9831
+1         0.0242  0              0  0              0  0              0  seti_boinc               ____libc_disable_asynccancel_veneer
+1         0.0242  0              0  0              0  0              0  seti_boinc               ____libc_enable_asynccancel_veneer
+1         0.0242  0              0  0              0  0              0  seti_boinc               dtime()
+1         0.0242  13        0.0025  0              0  0              0  seti_boinc               powl
+0              0  0              0  1         1.0204  0              0  seti_boinc               SPIKE_INFO::~SPIKE_INFO()
+0              0  19        0.0037  0              0  0              0  seti_boinc               __ieee754_log10
+0              0  2        3.9e-04  0              0  0              0  seti_boinc               fftwf_execute_dft
+0              0  4        7.8e-04  0              0  0              0  seti_boinc               finite
+0              0  9         0.0017  0              0  0              0  seti_boinc               invert_lcgf(float, float, float)
+0              0  242       0.0470  0              0  0              0  seti_boinc               lcgf(double, double)
+0              0  7         0.0014  0              0  0              0  seti_boinc               log10l
+ 
+ 
 }}}
 == ARM Cortex-A8 Events ==
 using oprofile v0.9.7
