@@ -1,6 +1,6 @@
 #summary One-sentence summary of this page.
 
-= Introduction =
+= Profiling SETI on Nehalem/Westmere (Core i3 330M) =
 
 {{{
 
@@ -857,4 +857,67 @@ samples  %        samples  %        samples  %        samples  %        symbol n
 0              0  0              0  0              0  1         0.0023  __mpn_mul_1
 0              0  1         0.0074  0              0  0              0  __restore
 0              0  1         0.0074  0              0  0              0  nanosleep
+}}}
+
+== Oprofile SETI script ==
+
+{{{
+#!/bin/bash
+SleepSeconds=60 
+
+./seti_boinc --standalone &
+sleep 10
+# Running Timer Mode
+sudo rm -r /var/lib/oprofile/
+sudo rm -r /root/.oprofile/daemonrc
+sudo opcontrol --init
+sudo opcontrol --no-vmlinux
+sudo opcontrol --reset
+sudo opcontrol --event=CPU_CLK_UNHALTED:200000:0x0:0:1 --event=INST_RETIRED:200000:0x0:0:1 --event=LLC_MISSES:200000:0x41:0:1 --event=LLC_REFS:200000:0x4f:0:1
+sudo opcontrol --start
+sudo opcontrol --status
+echo "profiling for $SleepSeconds seconds"
+sleep $SleepSeconds
+sudo opcontrol --dump
+date >> Nehalem.txt
+sudo opreport >> Nehalem.txt
+echo " " >> Nehalem.txt
+sudo opreport -l /home/jeff/stuff/seti_boinc/client/seti_boinc >> Nehalem.txt
+sudo opcontrol --shutdown
+
+# 1)DTLB - any miss 2) 
+sudo rm -r /var/lib/oprofile/
+sudo rm -r /root/.oprofile/daemonrc
+sudo opcontrol --init
+sudo opcontrol --no-vmlinux
+sudo opcontrol --reset
+sudo opcontrol --event=DTLB_LOAD_MISSES:200000:0x1:0:1 --event=DTLB_MISSES:200000:0x1:0:1 --event=ITLB_MISSES:200000:0x1:0:1 --event=ITLB_MISS_RETIRED:200000:0x20:0:1
+sudo opcontrol --start
+sudo opcontrol --status
+echo "profiling for $SleepSeconds seconds"
+sleep $SleepSeconds
+sudo opcontrol --dump
+date >> Nehalem.txt
+sudo opreport >> Nehalem.txt
+echo " " >> Nehalem.txt
+sudo opreport -l /home/jeff/stuff/seti_boinc/client/seti_boinc >> Nehalem.txt
+sudo opcontrol --shutdown
+
+# 1)DTLB - any miss 2) 
+sudo rm -r /var/lib/oprofile/
+sudo rm -r /root/.oprofile/daemonrc
+sudo opcontrol --init
+sudo opcontrol --no-vmlinux
+sudo opcontrol --reset
+sudo opcontrol --event=BR_INST_RETIRED:10000:0x0:0:1 --event=BR_MISS_PRED_RETIRED:10000:0x0:0:1 --event=RESOURCE_STALLS:2000000:0x1:0:1 --event=UOPS_EXECUTED:2000000:0x3f:0:1
+sudo opcontrol --start
+sudo opcontrol --status
+echo "profiling for $SleepSeconds seconds"
+sleep $SleepSeconds
+sudo opcontrol --dump
+date >> Nehalem.txt
+sudo opreport >> Nehalem.txt
+echo " " >> Nehalem.txt
+sudo opreport -l /home/jeff/stuff/seti_boinc/client/seti_boinc >> Nehalem.txt
+sudo opcontrol --shutdown
 }}}
