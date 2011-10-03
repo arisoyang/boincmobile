@@ -27,8 +27,9 @@ sudo opcontrol --dump
 date >> Atom.txt
 sudo opreport >> Atom.txt
 echo " " >> Atom.txt
-sudo opreport -l /home/jeff/stuff/seti_boinc/client/seti_boinc >> Atom.txt
+sudo opreport -l /home/xbmc/Documents/boinc/seti_boinc/client/seti_boinc >> Atom.txt
 sudo opcontrol --shutdown
+
 
 sudo rm -r /var/lib/oprofile/
 sudo rm -r /root/.oprofile/daemonrc
@@ -44,7 +45,7 @@ sudo opcontrol --dump
 date >> Atom.txt
 sudo opreport >> Atom.txt
 echo " " >> Atom.txt
-sudo opreport -l /home/jeff/stuff/seti_boinc/client/seti_boinc >> Atom.txt
+sudo opreport -l /home/xbmc/Documents/boinc/seti_boinc/client/seti_boinc >> Atom.txt
 sudo opcontrol --shutdown
 
 # 1)DTLB - any miss 2) 
@@ -62,9 +63,10 @@ sudo opcontrol --dump
 date >> Atom.txt
 sudo opreport >> Atom.txt
 echo " " >> Atom.txt
-sudo opreport -l /home/jeff/stuff/seti_boinc/client/seti_boinc >> Atom.txt
+sudo opreport -l /home/xbmc/Documents/boinc/seti_boinc/client/seti_boinc >> Atom.txt
 sudo opcontrol --shutdown
 
+# 1)DTLB - any miss 2) 
 sudo rm -r /var/lib/oprofile/
 sudo rm -r /root/.oprofile/daemonrc
 sudo opcontrol --init
@@ -79,6 +81,6 @@ sudo opcontrol --dump
 date >> Atom.txt
 sudo opreport >> Atom.txt
 echo " " >> Atom.txt
-sudo opreport -l /home/jeff/stuff/seti_boinc/client/seti_boinc >> Atom.txt
+sudo opreport -l /home/xbmc/Documents/boinc/seti_boinc/client/seti_boinc >> Atom.txt
 sudo opcontrol --shutdown
 }}}
