@@ -13,17 +13,20 @@ Scratchbox official website http://www.scratchbox.org/
 
 === Automatic installation ===
 
-||{{{$ sudo gedit /etc/apt/sources.list}}}||
+{{{$ sudo gedit /etc/apt/sources.list}}}
 
 Add this to the end of the file, then save and exit gedit:
 
-||{{{deb http://scratchbox.org/debian stable main}}}||
-
-||{{{deb http://scratchbox.org/debian legacy main}}}||
+{{{
+deb http://scratchbox.org/debian stable main
+deb http://scratchbox.org/debian legacy main
+}}}
 
 Now enter the following command:
 
-||{{{$ sudo apt-get install scratchbox-core scratchbox-libs scratchbox-devkit-cputransp scratchbox-devkit-git scratchbox-devkit-mtd scratchbox-devkit-perl scratchbox-devkit-doctools scratchbox-toolchain-arm-linux-cs2009q3-67 scratchbox-toolchain-host-gcc scratchbox-devkit-debian scratchbox-devkit-svn scratchbox-devkit-apt-https scratchbox-toolchain-cs2009q1-eglibc2.8-armv7}}}||
+{{{
+$ sudo apt-get install scratchbox-core scratchbox-libs scratchbox-devkit-cputransp scratchbox-devkit-git scratchbox-devkit-mtd scratchbox-devkit-perl scratchbox-devkit-doctools scratchbox-toolchain-arm-linux-cs2009q3-67 scratchbox-toolchain-host-gcc scratchbox-devkit-debian scratchbox-devkit-svn scratchbox-devkit-apt-https scratchbox-toolchain-cs2009q1-eglibc2.8-armv7
+}}}
 
 
 
@@ -31,8 +34,9 @@ Now enter the following command:
 
 
 Go to the following website:
+{{{
 http://www.scratchbox.org/download/files/sbox-releases/stable/tarball/
-
+}}}
 Then download the following files (Unless specified, choose latest version):
  
  * core
@@ -47,8 +51,10 @@ Then download the following files (Unless specified, choose latest version):
  * debian
 
 To install
-||{{{$ cd / }}}||
-||{{{$ sudo tar xvf /<location of files>/scratchbox-core.tar.gz}}}||
+{{{
+$ cd /
+$ sudo tar xvf /<location of files>/scratchbox-core.tar.gz
+}}}
 
 Repeat for all the downloaded files.
 
@@ -56,7 +62,7 @@ Repeat for all the downloaded files.
 
 Now, a few changes needs to me made in order for it to work correctly:
 
-||{{{$ sudo gedit /etc/sysctl.conf }}}||
+{{{$ sudo gedit /etc/sysctl.conf }}}
 
 Change vm.mmap_min_addr to be 4096 and append to the end: vm.vdso=0
 Save and Close.
@@ -64,22 +70,29 @@ Save and Close.
 The Ubuntu host kernel has vdso support (which is incompatible with SB)
 You can fix this with:
 
-||{{{$ sudo -s }}}||
-||{{{root@ubuntu:~# echo 0 > /proc/sys/vm/vdso_enabled }}}||
+{{{
+$ sudo -s
+root@ubuntu:~# echo 0 > /proc/sys/vm/vdso_enabled 
+}}}
 
 
 
 Add yourself to scratchbox:
-||{{{$ sudo sb-adduser <username> }}}||
+{{{
+$ sudo sb-adduser <username>
+}}}
 
 Make sure it worked by doing the following command, and see if sbox is listed.
-||{{{$ groups }}}||
+{{{
+$ groups 
+}}}
 
 If it isnt listed, restart and try again. If it still isnt listed, then do the following:
-||{{{$ usermod -a -G sbox <username>  }}}||
+{{{
+$ usermod -a -G sbox <username>  
+}}}
 
 It should now list (possibly after another logout)
-
 
 *Congratulations, you have access to scratchbox!*
 
@@ -92,9 +105,7 @@ http://linux.onarm.com/download/images/generic-2/20090807/generic-20090807-roots
 
 Now that Scratchbox is installed we need to set it up to cross compile for ARM targets.
 
-||{{{> sb-menu}}}||
-
-
+{{{> sb-menu}}}
 
 
  * Choose Setup a target
@@ -111,33 +122,37 @@ Now that Scratchbox is installed we need to set it up to cross compile for ARM t
 *Now scratchbox is setup, lets test it works with a hello world.*
 
 To login type
-||{{{$ /scratchbox/login}}}||
+{{{$ /scratchbox/login}}}
 
 Set ARCH
-||{{{>export ARCH=armel}}}||
+{{{>export ARCH=armel}}}
 
-||{{{> export SBOX_DPKG_INST_ARCH=armel}}}||
+{{{> export SBOX_DPKG_INST_ARCH=armel}}}
 
 Update /etc/apt/source.list to lenny or latest
-||{{{> vi /etc/apt/source.list}}}||
+{{{> vi /etc/apt/source.list}}}
 
 Now add the following lines to the list
-||{{{deb ftp://ftp.debian.org/debian/ lenny main}}}||
-||{{{deb-src ftp://ftp.debian.org/debian/ lenny main}}}||
+{{{
+deb ftp://ftp.debian.org/debian/ natty main
+deb-src ftp://ftp.debian.org/debian/ natty main
+}}}
 
-||{{{> apt-get update}}}||
+{{{
+> apt-get update
+}}}
 
 
 Now lets test the installation with hello world!
 
-||{{{> tar xfs /scratchbox/packages/hello-world.tar.gz}}}||
+{{{
+> tar xfs /scratchbox/packages/hello-world.tar.gz}}}
+> cd hello-world}}}
 
-||{{{> cd hello-world}}}||
-
-||{{{> ./autogen.sh}}}||
-
-||{{{> make}}}||
-
-||{{{> ./hello }}}||
+{{{
+> ./autogen.sh
+> make
+> ./hello 
+}}}
 
 You should see "Hello World!" printed in the terminal!
