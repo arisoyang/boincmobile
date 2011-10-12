@@ -1,8 +1,28 @@
-=Compiling BOINC on a ARM/Ubuntu platform=
+=Compiling BOINC on a Ubuntu platform=
 
 
 
-=== Simple Install Script ===
+=== Building on a Ubuntu Cortex-A8 ===
+
+{{{
+#!/bin/bash
+
+sudo apt-get install autoconf m4 openssl libcurl4-openssl-dev libtool subversion libfftw3-dev
+
+svn co http://boinc.berkeley.edu/svn/trunk/boinc 
+cd boinc/
+./_autosetup
+./configure --disable-server CXXFLAGS="-O3 -mtune=cortex-a8 -mfpu=neon" CFLAGS="-O3 -mtune=cortex-a8 -mfpu=neon"
+make
+
+svn checkout https://setisvn.ssl.berkeley.edu/svn/seti_boinc
+cd ../seti_boinc
+./_autosetup
+./configure --disable-server CXXFLAGS="-O3 -mtune=cortex-a8 -mfpu=neon" CFLAGS="-O3 -mtune=cortex-a8 -mfpu=neon"
+make
+}}}
+
+=== Building on a Ubuntu Cortex-A9 ===
 
 {{{
 #!/bin/bash
@@ -21,6 +41,47 @@ cd ../seti_boinc
 ./configure --disable-server CXXFLAGS="-O3 -mtune=cortex-a9 -mfpu=neon" CFLAGS="-O3 -mtune=cortex-a9 -mfpu=neon"
 make
 }}}
+
+=== Building on a Ubuntu Atom ===
+
+{{{
+#!/bin/bash
+
+sudo apt-get install autoconf m4 openssl libcurl4-openssl-dev libtool subversion libfftw3-dev
+
+svn co http://boinc.berkeley.edu/svn/trunk/boinc 
+cd boinc/
+./_autosetup
+./configure --disable-server CXXFLAGS="-O3 -mtune=atom" CFLAGS="-O3 -mtune=atom"
+make
+
+svn checkout https://setisvn.ssl.berkeley.edu/svn/seti_boinc
+cd ../seti_boinc
+./_autosetup
+./configure --disable-server CXXFLAGS="-O3 -mtune=atom" CFLAGS="-O3 -mtune=atom"
+make
+}}}
+
+=== Building on a Ubuntu Core i3 ===
+
+{{{
+#!/bin/bash
+
+sudo apt-get install autoconf m4 openssl libcurl4-openssl-dev libtool subversion libfftw3-dev
+
+svn co http://boinc.berkeley.edu/svn/trunk/boinc 
+cd boinc/
+./_autosetup
+./configure --disable-server CXXFLAGS="-O3 -mtune=core2" CFLAGS="-O3 -mtune=core2"
+make
+
+svn checkout https://setisvn.ssl.berkeley.edu/svn/seti_boinc
+cd ../seti_boinc
+./_autosetup
+./configure --disable-server CXXFLAGS="-O3 -mtune=core2" CFLAGS="-O3 -mtune=core2"
+make
+}}}
+
 
 === Using Super Optimized Version of FFTW ===
 Note: I didn't see much performance difference with this versus the debian package and thus ended up using the .deb version
