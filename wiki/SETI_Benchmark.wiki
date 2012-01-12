@@ -125,7 +125,7 @@ sudo make install
 Rules
 
  # SETI (setiboinc) looks for the BOINC middleware in ../boinc
-  *Your source tree should look like
+  * Your source tree should look like
    *../boinc
    *../seti_boinc
 
