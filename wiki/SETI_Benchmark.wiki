@@ -14,7 +14,7 @@ The software searches for five types of signals that distinguish them from noise
 
 A test "work unit" is included in the SVN repository and can be used as a "static workload" to compare execution results across other platforms. The "work unit" will execute faster on some architectures versus others, but it will accomplish the same amount of work. For example the Intel Core i3 processor executes the work unit in around 90 minutes whereas 448 minutes on an Atom processor. 
 
-The main benefit of using static workloads is that a power / performance profile can be established. For example: Time * Power = Joules / per SETI work unit.
+The main benefit of using static workloads is that a power / performance profile can be established. For example: Time x Power = Joules / per SETI work unit.
 
 ==Compiling BOINC and SETI on a Ubuntu platform==
 
