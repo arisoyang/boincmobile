@@ -101,7 +101,7 @@ make
 }}}
 
 
-=== Using Super Optimized Version of FFTW ===
+=== Using Optimized Version of FFTW (Optional) ===
 Note: I didn't see much performance difference with this versus the debian package and thus ended up using the .deb version
 Project Link: http://code.google.com/p/fftw-neon/
 {{{
@@ -118,4 +118,20 @@ patch -p1 < fftw-3.2.2-neon-1.diff
 ./configure --prefix=/usr --enable-single --enable-shared --with-pic CFLAGS="-O3 -pipe -mcpu=cortex-a9 -mfpu=neon -mfloat-abi=softfp"
 make
 sudo make install
+}}}
+
+== Running SETI on all platforms ==
+
+Rules
+
+ # SETI (setiboinc) looks for the BOINC middleware in ../boinc
+  *Your source tree should look like
+   *../boinc
+   *../seti_boinc
+
+
+
+{{{
+
+
 }}}
