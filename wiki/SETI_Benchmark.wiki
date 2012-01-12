@@ -136,7 +136,7 @@ To capture exact time a script should be used
 #!/bin/bash
 # Using SETI as an FFT benchmark
 date
-./seti_boinc --standalone &
+./seti_boinc --standalone
 date
 
 }}}
