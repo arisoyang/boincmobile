@@ -1,0 +1,43 @@
+## Known issues and errors with the cross compilation of BOINC ##
+
+Most of the issues with cross compiling BOINC are due to the host system environment setup and how the spoofing environment is setup.
+
+## Here is a list of some to the issues you might have encountered, with some hack fixes ##
+
+### openssl ###
+
+**Error Message**
+```
+crypt.cpp:33:25: error: openssl/ssl.h: No such file or directory
+crypt.cpp:34:25: error: openssl/md5.h: No such file or directory
+crypt.cpp:35:25: error: openssl/bio.h: No such file or directory
+```
+
+**Fix**
+```
+cd boinc/lib
+> ln -s /usr/local/ssl/include/openssl/ openssl
+```
+
+
+### lnsl ###
+
+**Error Message**
+```
+-lnsl -lpthread -lm  
+/scratchbox/compilers/arm-linux-cs2008q3-72/bin/../lib/gcc/arm-none-linux-gnueabi/4.3.2/../../../../arm-none-linux-gnueabi/bin/ld: cannot find -lssl
+collect2: ld returned 1 exit status
+```
+
+**Explanation**
+
+The -l flag is essentially a shorthand for "look for lib.whatever.so lib.whatever.a in all the configured library directories". "Configured library directories" are whatever has been configured in your linker, plus the arguments to any -L options you might have.
+
+
+**Fix**
+```
+> ln -s /usr/local/ssl/lib/libcrypto.a /usr/lib/libcrypto.a
+> ln -s /usr/local/ssl/lib/libssl.a /usr/lib/libssl.a
+```
+
+## End Known Issues ##

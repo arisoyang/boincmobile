@@ -1,0 +1,114 @@
+# This wiki describes how to cross compile BOINC to a ARM/linux platform #
+
+**What is BOINC**
+
+Currently BOINC allows you to use the idle time on your computer (Windows, Mac, or Linux) to cure diseases, study global warming, discover pulsars, and do many other types of scientific research.
+
+This project is being developed to allow you to use your idle time on your smart phone or other internet connected device to server the same purpose.
+
+**This tutorial assumes that you have setup scratchbox on your host development system**
+
+## Installing the BOINC dependencies in the compilation environment ##
+
+Before we can successfully cross compile BOINC for the ARM instruction set we first need to install all of the dependencies into the scratchbox target. We will show both automatic and manual methods for installing these dependencies.
+
+
+First login to scratchbox:
+```
+$ /scratchbox/login
+```
+
+### Installing BOINC dependencies automatically ###
+
+
+```
+> fakeroot apt-get install curl zlib autoconf m4 openssl libcurl4-openssl-dev libfftw3-dev
+```
+
+
+### Installing BOINC dependencies manually ###
+
+Download Autoconf: http://www.gnu.org/software/autoconf/
+
+```
+> tar zxvf autoconf-2.63.tar.gz 
+> cd autoconf-2.63
+> fakeroot ./configure 
+> fakeroot make install 
+```
+
+Download AutoMake http://ftp.gnu.org/gnu/automake/
+```
+> tar zxvf automake-1.10.1.tar.gz
+> cd automake-1.10.1
+> fakeroot ./configure 
+> fakeroot make install
+```
+
+Download Curl from:
+http://curl.haxx.se/
+```
+> tar xvzf curl-7.20.1.tar.gz
+> fakeroot ./configure  --host=i386 --target=armel
+> fakeroot make install
+```
+
+Download OpenSSL source
+http://www.openssl.org/source/
+
+```
+> tar xvzf openssl-1.0.0.tar.gz
+> cd openssl-1.0.0
+> fakeroot ./config
+> fakeroot make install
+```
+
+Download zlib
+http://www.zlib.net/
+
+```
+> tar xvzf zlib-1.2.5.tar.gz
+> cd zlib-1.2.5
+> fakeroot ./configure
+> fakeroot make install
+```
+
+
+## Getting the BOINC source code from the SVN repository ##
+
+
+Now check out the BOINC source code from the SVN repository
+```
+> svn co http://boinc.berkeley.edu/svn/trunk/boinc   
+```
+
+Now lets build BOINC
+
+```
+> cd boinc
+> fakeroot ./_autosetup
+> fakeroot ./configure --disable-server  --host=i386 --target=armel CXXFLAGS="-O2 -mtune=cortex-a8 -mfpu=neon" CFLAGS="-O2 -mtune=cortex-a8 -mfpu=neon"
+> fakeroot make
+```
+
+Depending on the details of your build environment you might have noticed a few configuration and compilation errors.
+
+To see a list of the know cross compilation issues and annoyances click here: http://code.google.com/p/boincmobile/wiki/BOINC_Build_Issues
+
+## Building SETI at Home ##
+
+### getting the seti at home source code ###
+
+```
+svn checkout https://setisvn.ssl.berkeley.edu/svn/seti_boinc 
+```
+
+Now lets build SETI for the ARM instruction set
+
+
+```
+> cd seti_boinc 
+> fakeroot ./_autosetup 
+> fakeroot ./configure --host=i386 --target=armel --disable-server CXXFLAGS="-O2 -mtune=cortex-a8 -mfpu=neon" CFLAGS="-O2 -mtune=cortex-a8 -mfpu=neon"
+> make 
+```

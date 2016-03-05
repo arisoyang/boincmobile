@@ -1,0 +1,156 @@
+# This wiki describes how to setup and use scratchbox on a x86 ubuntu host system #
+
+**What is Scratchbox?**
+
+Scratchbox is a cross-compilation toolkit designed to make embedded Linux application development easier. It also provides a full set of tools to integrate and cross-compile an entire Linux distribution.
+
+I think of scratchbox as a type of virtual machine that runs on a host system which provides a solid ARM/Linux spoofing environment to the compilation toolchain for building large packages.
+
+Scratchbox official website http://www.scratchbox.org/
+
+
+## Installing up Scratchbox on Ubuntu 9.10 (x86-32bit) ##
+
+### Automatic installation ###
+
+`$ sudo gedit /etc/apt/sources.list`
+
+Add this to the end of the file, then save and exit gedit:
+
+```
+deb http://scratchbox.org/debian stable main
+deb http://scratchbox.org/debian legacy main
+```
+
+Now enter the following command:
+
+```
+$ sudo apt-get install scratchbox-core scratchbox-libs scratchbox-devkit-cputransp scratchbox-devkit-git scratchbox-devkit-mtd scratchbox-devkit-perl scratchbox-devkit-doctools scratchbox-toolchain-arm-linux-cs2009q3-67 scratchbox-toolchain-host-gcc scratchbox-devkit-debian scratchbox-devkit-svn scratchbox-devkit-apt-https scratchbox-toolchain-cs2009q1-eglibc2.8-armv7
+```
+
+
+
+### Manual Installation: ###
+
+
+Go to the following website:
+```
+http://www.scratchbox.org/download/files/sbox-releases/stable/tarball/
+```
+Then download the following files (Unless specified, choose latest version):
+
+  * core
+  * libs
+  * cputransp
+  * doctools
+  * git
+  * mtd
+  * perl
+  * toolchain (cs2009q3-67 or later)
+  * host-gcc
+  * debian
+
+To install
+```
+$ cd /
+$ sudo tar xvf /<location of files>/scratchbox-core.tar.gz
+```
+
+Repeat for all the downloaded files.
+
+### Installation Continued for both Automatic and Manual Methods: ###
+
+Now, a few changes needs to me made in order for it to work correctly:
+
+`$ sudo gedit /etc/sysctl.conf `
+
+Change vm.mmap\_min\_addr to be 4096 and append to the end: vm.vdso=0
+Save and Close.
+
+The Ubuntu host kernel has vdso support (which is incompatible with SB)
+You can fix this with:
+
+```
+$ sudo -s
+root@ubuntu:~# echo 0 > /proc/sys/vm/vdso_enabled 
+```
+
+
+
+Add yourself to scratchbox:
+```
+$ sudo sb-adduser <username>
+```
+
+Make sure it worked by doing the following command, and see if sbox is listed.
+```
+$ groups 
+```
+
+If it isnt listed, restart and try again. If it still isnt listed, then do the following:
+```
+$ usermod -a -G sbox <username>  
+```
+
+It should now list (possibly after another logout)
+
+**Congratulations, you have access to scratchbox!**
+
+## Setting up Scratchbox ##
+
+First we need to download a rootstrap to use with SB, if this package is not the latest generic rootstrap then find the latest. Move the rootstrap to /scratchbox/packages/
+
+http://linux.onarm.com/download/images/generic-2/20090807/generic-20090807-rootstrap.tar.gz
+
+
+Now that Scratchbox is installed we need to set it up to cross compile for ARM targets.
+
+`> sb-menu`
+
+
+  * Choose Setup a target
+  * Create a NEW target, give it any name
+  * Select the compiler you downloaded (arm-linux-cs2009q3-67)
+  * Select all development kits listed by highlighting each one and pressing enter, then Done and enter
+  * Select CPU transparency (qemu-arm-cvs-m)
+  * Yes to rootstrap. Locate the previously downloaded rootstrap to install.
+  * Yes to install files
+  * Only select DEVKIT and ETC. Remove all other files in list, then continue
+  * And finally Yes to selecting target.
+
+
+**Now scratchbox is setup, lets test it works with a hello world.**
+
+To login type
+`$ /scratchbox/login`
+
+Set ARCH
+`>export ARCH=armel`
+
+`> export SBOX_DPKG_INST_ARCH=armel`
+
+Update /etc/apt/source.list to lenny or latest
+`> vi /etc/apt/source.list`
+
+Now add the following lines to the list
+```
+deb ftp://ftp.debian.org/debian/ natty main
+deb-src ftp://ftp.debian.org/debian/ natty main
+```
+
+```
+> apt-get update
+```
+
+
+Now lets test the installation with hello world!
+> tar xfs /scratchbox/packages/hello-world.tar.gz}}}
+> cd hello-world}}}
+
+{{{
+> ./autogen.sh
+> make
+> ./hello 
+}}}
+
+You should see "Hello World!" printed in the terminal!```

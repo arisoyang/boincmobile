@@ -1,0 +1,22 @@
+# Compiling Kernel on a ARM/Ubuntu platform #
+
+
+
+### Simple Kernel Compile Script ###
+
+```
+#!/bin/bash
+# To add oprofile support to the kernel to access PMU events
+sudo apt-get install kernel-wedge ncurses-dev
+sudo mkdir /media/temp
+sudo mount -t auto /dev/mmcblk0p1 /media/temp/
+
+sudo apt-get source linux-image-$(uname -r)
+cd linux-ti-omap4-2.6.38/
+sudo fakeroot debian/rules clean
+sudo fakeroot debian/rules editconfigs
+
+# add access to performance monitoring events
+# add profiling support
+# add oprofile driver
+```
